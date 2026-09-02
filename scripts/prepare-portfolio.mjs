@@ -14,6 +14,7 @@ const sources = {
   homepage: path.join(workspaceRoot, 'Homepage'),
   mobile: path.join(workspaceRoot, 'PrepInsta Prime Mobile App Case Study'),
   web: path.join(workspaceRoot, 'PrepInsta Prime Web Case Study'),
+  zeltgold: path.join(workspaceRoot, 'ZeltGold Case study', 'site'),
 };
 
 function runBuild(cwd, label) {
@@ -134,6 +135,7 @@ runBuild(sources.web, 'PrepInsta web case study');
 await replaceDirectory(sources.homepage, path.join(publicRoot, 'portfolio'));
 await replaceDirectory(path.join(sources.mobile, 'out'), path.join(publicRoot, 'case-studies', 'prepinsta-app'));
 await replaceDirectory(path.join(sources.web, 'out'), path.join(publicRoot, 'case-studies', 'prepinsta-web'));
+await replaceDirectory(sources.zeltgold, path.join(publicRoot, 'zeltgold'));
 
 await Promise.all([
   optimizeCaseStudyImages(path.join(publicRoot, 'case-studies', 'prepinsta-app')),
