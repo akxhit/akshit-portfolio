@@ -1,6 +1,5 @@
-import { cp, mkdir, mkdtemp, readFile, readdir, rename, rm, stat, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
-import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -14,7 +13,7 @@ const sources = {
   homepage: path.join(workspaceRoot, 'Homepage'),
   mobile: path.join(workspaceRoot, 'PrepInsta Prime Mobile App Case Study'),
   web: path.join(workspaceRoot, 'PrepInsta Prime Web Case Study'),
-  zeltgold: path.join(workspaceRoot, 'ZeltGold Case study', 'site'),
+  zeltgold: path.join(workspaceRoot, 'ZeltGold Case study'),
 };
 
 function runBuild(cwd, label) {
@@ -53,6 +52,8 @@ async function optimizeCaseStudyImages(directory) {
   const files = await walk(directory);
   const pngs = files.filter((file) => path.extname(file).toLowerCase() === '.png');
 
+  if (pngs.length === 0) return;
+
   await Promise.all(pngs.map(async (input) => {
     const output = input.replace(/\.png$/i, '.webp');
     const image = sharp(input);
@@ -77,36 +78,25 @@ async function optimizeCaseStudyImages(directory) {
     }));
 }
 
-async function optimizeCaseStudyVideos(directory) {
-  if (process.platform !== 'darwin') return;
+async function localizeCars24Images(file, assetsDirectory) {
+  const assetFiles = await readdir(assetsDirectory);
+  const assetsByStem = new Map(
+    assetFiles.map((assetFile) => [path.parse(assetFile).name, assetFile]),
+  );
+  const localFallbacks = new Map([
+    ['7MGQYSt5cCLyi33Jgdk3bG8A6HA', '/favicon.svg'],
+    ['XV5srg0tA08fOjAdkuX8QbBRqMQ', '/og.png'],
+  ]);
+  const original = await readFile(file, 'utf8');
+  const localized = original.replace(
+    /https:\/\/framerusercontent\.com\/images\/([A-Za-z0-9_-]+)\.[A-Za-z0-9]+(?:\?[^"'\s,)]*)?/g,
+    (url, stem) => {
+      const localAsset = assetsByStem.get(stem);
+      return localAsset ? `/assets/${localAsset}` : (localFallbacks.get(stem) ?? url);
+    },
+  );
 
-  const files = await walk(directory);
-  const videos = [];
-  for (const file of files) {
-    if (path.extname(file).toLowerCase() !== '.mp4') continue;
-    const info = await stat(file);
-    if (info.size > 1_000_000) videos.push(file);
-  }
-
-  for (const input of videos) {
-    const tempDirectory = await mkdtemp(path.join(os.tmpdir(), 'portfolio-video-'));
-    const output = path.join(tempDirectory, 'optimized.m4v');
-    const result = spawnSync('avconvert', [
-      '--source', input,
-      '--preset', 'PresetAppleM4VCellular',
-      '--output', output,
-      '--replace',
-      '--disableMetadataFilter',
-    ], { stdio: 'inherit' });
-
-    if (result.status !== 0) {
-      await rm(tempDirectory, { recursive: true, force: true });
-      throw new Error(`Could not optimize ${input}.`);
-    }
-
-    await rename(output, input);
-    await rm(tempDirectory, { recursive: true, force: true });
-  }
+  if (localized !== original) await writeFile(file, localized, 'utf8');
 }
 
 const chromeHead = '<link data-portfolio-chrome rel="stylesheet" href="/shared/case-study-chrome.css">';
@@ -131,23 +121,24 @@ async function injectCaseStudyChrome(file) {
 
 runBuild(sources.mobile, 'PrepInsta mobile case study');
 runBuild(sources.web, 'PrepInsta web case study');
+runBuild(sources.zeltgold, 'ZELTGOLD case study');
 
 await replaceDirectory(sources.homepage, path.join(publicRoot, 'portfolio'));
 await replaceDirectory(path.join(sources.mobile, 'out'), path.join(publicRoot, 'case-studies', 'prepinsta-app'));
 await replaceDirectory(path.join(sources.web, 'out'), path.join(publicRoot, 'case-studies', 'prepinsta-web'));
-await replaceDirectory(sources.zeltgold, path.join(publicRoot, 'zeltgold'));
+await replaceDirectory(path.join(sources.zeltgold, 'out'), path.join(publicRoot, 'case-studies', 'zeltgold'));
+
+await localizeCars24Images(
+  path.join(publicRoot, 'cars24', 'index.html'),
+  path.join(publicRoot, 'assets'),
+);
 
 await Promise.all([
   optimizeCaseStudyImages(path.join(publicRoot, 'case-studies', 'prepinsta-app')),
   optimizeCaseStudyImages(path.join(publicRoot, 'case-studies', 'prepinsta-web')),
   optimizeCaseStudyImages(path.join(publicRoot, 'cars24')),
-  optimizeCaseStudyImages(path.join(publicRoot, 'zeltgold')),
+  optimizeCaseStudyImages(path.join(publicRoot, 'case-studies', 'zeltgold')),
   optimizeCaseStudyImages(path.join(publicRoot, 'portfolio')),
-]);
-
-await Promise.all([
-  optimizeCaseStudyVideos(path.join(publicRoot, 'case-studies', 'prepinsta-app')),
-  optimizeCaseStudyVideos(path.join(publicRoot, 'case-studies', 'prepinsta-web')),
 ]);
 
 await Promise.all([
@@ -155,7 +146,7 @@ await Promise.all([
   requireFile(path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html')),
   requireFile(path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html')),
   requireFile(path.join(publicRoot, 'cars24', 'index.html')),
-  requireFile(path.join(publicRoot, 'zeltgold', 'index.html')),
+  requireFile(path.join(publicRoot, 'case-studies', 'zeltgold', 'index.html')),
   requireFile(path.join(publicRoot, 'shared', 'case-study-chrome.css')),
   requireFile(path.join(publicRoot, 'shared', 'case-study-chrome.js')),
 ]);
@@ -164,7 +155,6 @@ await Promise.all([
   injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html')),
   injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html')),
   injectCaseStudyChrome(path.join(publicRoot, 'cars24', 'index.html')),
-  injectCaseStudyChrome(path.join(publicRoot, 'zeltgold', 'index.html')),
 ]);
 
 console.log('Portfolio homepage and all four case studies are ready.');
