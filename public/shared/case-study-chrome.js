@@ -23,7 +23,7 @@
       image: "/portfolio/assets/zeltgold.png",
       alt: "ZELTGOLD jewellery savings case study preview"
     },
-    "/zeltgold": {
+    "/case-studies/zeltgold": {
       title: "PrepInsta Prime App",
       description: "A native learning experience designed around one obvious path from intent to progress.",
       href: "/work/prepinsta-app",
@@ -53,6 +53,10 @@
     progress.innerHTML = '<div class="portfolio-case-progress__fill"></div>';
 
     document.body.insertAdjacentElement("afterbegin", nav);
+    var blueBlur = document.createElement("div");
+    blueBlur.className = "portfolio-progressive-blue";
+    blueBlur.setAttribute("aria-hidden", "true");
+    document.body.appendChild(blueBlur);
     document.body.appendChild(progress);
   }
 
