@@ -3,15 +3,7 @@
   --pc-fg: var(--fg, #111614);
   --pc-muted: var(--fg-3, #616764);
   --pc-line: var(--line, #d9d8d1);
-  --pc-blue-50: #eff7ff;
-  --pc-blue-100: #dceeff;
-  --pc-blue-300: #8fc7ff;
-  --pc-blue-500: #2aabee;
-  --pc-blue-700: #1068d6;
-  --pc-blue-950: #06192f;
-  --pc-accent: var(--pc-blue-500);
-  --pc-accent-strong: var(--pc-blue-700);
-  --pc-accent-soft: color-mix(in srgb, var(--pc-accent) 15%, transparent);
+  --pc-accent: #2aabee;
   --pc-font: var(--font-sans, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 }
 
@@ -20,57 +12,33 @@ html.portfolio-chrome-dark {
   --pc-fg: #f3f3ef;
   --pc-muted: #a3a39e;
   --pc-line: #30302e;
-  --pc-accent-soft: color-mix(in srgb, var(--pc-accent) 20%, transparent);
-}
-
-.portfolio-progressive-blue {
-  background:
-    linear-gradient(to top, transparent, color-mix(in srgb, var(--pc-blue-500) 16%, var(--pc-bg)) 82%),
-    linear-gradient(90deg, transparent, color-mix(in srgb, var(--pc-blue-300) 12%, transparent), transparent);
-  bottom: 0;
-  height: clamp(96px, 15vw, 190px);
-  left: 0;
-  mask-image: linear-gradient(to top, color-mix(in srgb, var(--pc-blue-500) 82%, transparent) 36%, transparent);
-  -webkit-mask-image: linear-gradient(to top, color-mix(in srgb, var(--pc-blue-500) 82%, transparent) 36%, transparent);
-  pointer-events: none;
-  position: fixed;
-  width: 100%;
-  z-index: 996;
-}
-
-@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-  .portfolio-progressive-blue {
-    backdrop-filter: blur(5px) saturate(1.18);
-    -webkit-backdrop-filter: blur(5px) saturate(1.18);
-  }
 }
 
 .portfolio-case-nav {
   align-items: center;
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
-  background: color-mix(in srgb, var(--pc-bg) 34%, transparent);
-  border: 1px solid color-mix(in srgb, var(--pc-accent) 18%, transparent);
-  border-radius: 999px;
+  backdrop-filter: blur(22px) saturate(1.25);
+  -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  background: color-mix(in srgb, var(--pc-bg) 48%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pc-fg) 10%, transparent);
+  border-radius: 13px;
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, white 15%, transparent),
-    0 10px 34px color-mix(in srgb, var(--pc-blue-950) 12%, transparent);
+    inset 0 1px 0 rgb(255 255 255 / 18%),
+    0 8px 28px color-mix(in srgb, var(--pc-fg) 6%, transparent);
   color: var(--pc-fg);
   display: inline-flex;
   font-family: var(--pc-font);
-  height: 36px;
+  height: 40px;
   isolation: isolate;
   left: 14px;
   overflow: hidden;
   position: fixed;
   top: 14px;
-  opacity: 0.74;
   transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
   z-index: 998;
 }
 
 .portfolio-case-nav::before {
-  background: linear-gradient(105deg, color-mix(in srgb, white 12%, transparent), transparent 34%, color-mix(in srgb, var(--pc-accent) 10%, transparent));
+  background: linear-gradient(105deg, rgb(255 255 255 / 10%), transparent 34%, rgb(255 255 255 / 4%));
   content: "";
   inset: 0;
   pointer-events: none;
@@ -80,26 +48,25 @@ html.portfolio-chrome-dark {
 
 .portfolio-case-nav:hover,
 .portfolio-case-nav:focus-within {
-  background: color-mix(in srgb, var(--pc-bg) 56%, transparent);
-  border-color: color-mix(in srgb, var(--pc-accent) 30%, transparent);
+  background: color-mix(in srgb, var(--pc-bg) 62%, transparent);
+  border-color: color-mix(in srgb, var(--pc-fg) 15%, transparent);
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, white 18%, transparent),
-    0 12px 38px color-mix(in srgb, var(--pc-blue-950) 16%, transparent);
-  opacity: 1;
+    inset 0 1px 0 rgb(255 255 255 / 22%),
+    0 10px 32px color-mix(in srgb, var(--pc-fg) 8%, transparent);
 }
 
 .portfolio-case-nav__back {
   align-items: center;
   color: inherit;
   display: inline-flex;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   gap: 7px;
   letter-spacing: -0.01em;
   line-height: 1;
-  min-height: 36px;
+  min-height: 40px;
   opacity: 0.76;
-  padding: 0 13px;
+  padding: 0 14px;
   text-decoration: none;
   transition: opacity 180ms ease;
 }
@@ -145,9 +112,7 @@ html.portfolio-chrome-dark {
 }
 
 .portfolio-next {
-  background:
-    radial-gradient(circle at 14% 18%, color-mix(in srgb, var(--pc-accent) 14%, transparent), transparent 34%),
-    linear-gradient(180deg, var(--pc-bg), color-mix(in srgb, var(--pc-bg) 88%, var(--pc-blue-50)));
+  background: var(--pc-bg);
   color: var(--pc-fg);
   font-family: var(--pc-font);
   padding: clamp(72px, 10vw, 144px) clamp(16px, 4vw, 56px);
@@ -169,8 +134,8 @@ html.portfolio-chrome-dark {
 }
 
 .portfolio-next__card {
-  background: color-mix(in srgb, var(--pc-bg) 90%, var(--pc-blue-50));
-  border: 1px solid color-mix(in srgb, var(--pc-accent) 24%, var(--pc-line));
+  background: color-mix(in srgb, var(--pc-bg) 94%, var(--pc-fg));
+  border: 1px solid var(--pc-line);
   border-radius: 18px;
   color: inherit;
   display: grid;
@@ -181,7 +146,7 @@ html.portfolio-chrome-dark {
 }
 
 .portfolio-next__media {
-  background: linear-gradient(135deg, color-mix(in srgb, var(--pc-blue-100) 60%, var(--pc-bg)), color-mix(in srgb, var(--pc-bg) 84%, var(--pc-fg)));
+  background: color-mix(in srgb, var(--pc-bg) 86%, var(--pc-fg));
   min-height: 440px;
   overflow: hidden;
   position: relative;
@@ -233,7 +198,6 @@ html.portfolio-chrome-dark {
   gap: 10px;
   margin-top: 48px;
   padding-bottom: 5px;
-  color: var(--pc-accent-strong);
 }
 
 .portfolio-next__card:hover .portfolio-next__image {

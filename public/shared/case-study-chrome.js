@@ -53,10 +53,6 @@
     progress.innerHTML = '<div class="portfolio-case-progress__fill"></div>';
 
     document.body.insertAdjacentElement("afterbegin", nav);
-    var blueBlur = document.createElement("div");
-    blueBlur.className = "portfolio-progressive-blue";
-    blueBlur.setAttribute("aria-hidden", "true");
-    document.body.appendChild(blueBlur);
     document.body.appendChild(progress);
   }
 

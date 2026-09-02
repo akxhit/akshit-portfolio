@@ -155,7 +155,6 @@ await Promise.all([
   injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html')),
   injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html')),
   injectCaseStudyChrome(path.join(publicRoot, 'cars24', 'index.html')),
-  injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'zeltgold', 'index.html')),
 ]);
 
 console.log('Portfolio homepage and all four case studies are ready.');
