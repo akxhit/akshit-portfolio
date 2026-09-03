@@ -13,6 +13,31 @@ body {
   width: 100%;
 }
 
+html.is-page-transition-leaving body {
+  animation: portfolio-page-out 700ms cubic-bezier(0.76, 0, 0.24, 1) both;
+  pointer-events: none;
+  transform-origin: center top;
+}
+
+html.is-page-transition-entering body {
+  animation: portfolio-page-in 700ms cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+@keyframes portfolio-page-out {
+  from { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  to { opacity: 0.4; transform: translate3d(0, -30vh, 0) scale(0.8); }
+}
+
+@keyframes portfolio-page-in {
+  from { clip-path: inset(100% 0 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.is-page-transition-leaving body,
+  html.is-page-transition-entering body { animation: none; }
+}
+
 .portfolio-shell,
 .case-study-shell {
   height: 100dvh;

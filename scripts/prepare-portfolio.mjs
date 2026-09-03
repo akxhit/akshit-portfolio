@@ -101,12 +101,14 @@ async function localizeCars24Images(file, assetsDirectory) {
 
 const chromeHead = '<link data-portfolio-chrome rel="stylesheet" href="/shared/case-study-chrome.css?v=portfolio6">';
 const chromeBody = '<!-- portfolio-chrome:start --><script src="/shared/case-study-chrome.js?v=portfolio6"></script><!-- portfolio-chrome:end -->';
+const transitionBridge = '<!-- portfolio-transition:start --><script src="/shared/page-transition-bridge.js?v=portfolio2"></script><!-- portfolio-transition:end -->';
 
 async function injectCaseStudyChrome(file) {
   let html = await readFile(file, 'utf8');
   html = html
     .replace(/\r?\n?<link data-portfolio-chrome[^>]*>\r?\n?/g, '')
     .replace(/\r?\n?<!-- portfolio-chrome:start -->[\s\S]*?<!-- portfolio-chrome:end -->\r?\n?/g, '')
+    .replace(/\r?\n?<!-- portfolio-transition:start -->[\s\S]*?<!-- portfolio-transition:end -->\r?\n?/g, '')
     .replace(/[ \t\r\n]+(?=<\/head>)/, '');
 
   if (!html.includes('</head>') || !html.includes('</body>')) {
@@ -116,6 +118,14 @@ async function injectCaseStudyChrome(file) {
   html = html
     .replace('</head>', `\n${chromeHead}\n</head>`)
     .replace('</body>', `\n${chromeBody}\n</body>`);
+  await writeFile(file, html, 'utf8');
+}
+
+async function injectTransitionBridge(file) {
+  let html = await readFile(file, 'utf8');
+  html = html.replace(/\r?\n?<!-- portfolio-transition:start -->[\s\S]*?<!-- portfolio-transition:end -->\r?\n?/g, '');
+  if (!html.includes('</body>')) throw new Error(`Could not find a complete HTML document at ${file}`);
+  html = html.replace('</body>', `\n${transitionBridge}\n</body>`);
   await writeFile(file, html, 'utf8');
 }
 
@@ -156,6 +166,14 @@ await Promise.all([
   injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html')),
   injectCaseStudyChrome(path.join(publicRoot, 'cars24', 'index.html')),
   injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'zeltgold', 'index.html')),
+]);
+
+await Promise.all([
+  injectTransitionBridge(path.join(publicRoot, 'portfolio', 'index.html')),
+  injectTransitionBridge(path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html')),
+  injectTransitionBridge(path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html')),
+  injectTransitionBridge(path.join(publicRoot, 'case-studies', 'zeltgold', 'index.html')),
+  injectTransitionBridge(path.join(publicRoot, 'cars24', 'index.html')),
 ]);
 
 console.log('Portfolio homepage and all four case studies are ready.');
