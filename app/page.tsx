@@ -3,11 +3,11 @@ export default function Home() {
     <main className="portfolio-shell">
       <iframe
         className="portfolio-frame"
-        src="/portfolio/"
+        src="/portfolio/index.html"
         title="Akshit Manik product design portfolio"
       />
       <noscript>
-        <a href="/portfolio/">Open Akshit Manik&apos;s portfolio</a>
+        <a href="/portfolio/index.html">Open Akshit Manik&apos;s portfolio</a>
       </noscript>
     </main>
   );
