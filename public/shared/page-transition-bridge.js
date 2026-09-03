@@ -30,7 +30,14 @@
         return;
       }
 
+      var background = window.getComputedStyle(document.body).backgroundColor;
+      if (!background || background === "rgba(0, 0, 0, 0)") {
+        background = window.getComputedStyle(document.documentElement).backgroundColor;
+      }
+
       window.parent.sessionStorage.setItem("portfolio-page-transition", "enter");
+      window.parent.sessionStorage.setItem("portfolio-page-background", background || "#0a0a0a");
+      window.parent.document.documentElement.style.backgroundColor = background || "#0a0a0a";
       window.top.location.assign(destination.href);
     } catch {
       window.top.location.assign(destination.href);
