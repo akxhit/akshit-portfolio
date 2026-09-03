@@ -99,8 +99,8 @@ async function localizeCars24Images(file, assetsDirectory) {
   if (localized !== original) await writeFile(file, localized, 'utf8');
 }
 
-const chromeHead = '<link data-portfolio-chrome rel="stylesheet" href="/shared/case-study-chrome.css?v=portfolio6">';
-const chromeBody = '<!-- portfolio-chrome:start --><script src="/shared/case-study-chrome.js?v=portfolio6"></script><!-- portfolio-chrome:end -->';
+const chromeHead = '<link data-portfolio-chrome rel="stylesheet" href="/shared/case-study-chrome.css?v=portfolio7">';
+const chromeBody = '<!-- portfolio-chrome:start --><script src="/shared/case-study-chrome.js?v=portfolio7"></script><!-- portfolio-chrome:end -->';
 const transitionBridge = '<!-- portfolio-transition:start --><script src="/shared/page-transition-bridge.js?v=portfolio4"></script><!-- portfolio-transition:end -->';
 
 async function injectCaseStudyChrome(file) {

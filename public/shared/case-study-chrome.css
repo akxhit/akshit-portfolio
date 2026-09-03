@@ -14,6 +14,11 @@ html.portfolio-chrome-dark {
   --pc-line: #30302e;
 }
 
+/* ZELTGOLD ships with its own fixed header; the shared portfolio chrome replaces it. */
+.case-v2 > .nav {
+  display: none !important;
+}
+
 .portfolio-case-nav {
   align-items: center;
   backdrop-filter: blur(22px) saturate(1.25);
