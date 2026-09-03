@@ -33,7 +33,9 @@
   };
 
   function currentProject() {
-    var path = window.location.pathname.replace(/\/$/, "");
+    var path = window.location.pathname
+      .replace(/\/index\.html$/, "")
+      .replace(/\/$/, "");
     return projects[path] || null;
   }
 

@@ -99,7 +99,7 @@ html.portfolio-chrome-dark {
 .portfolio-case-progress__fill {
   animation: portfolio-progress linear both;
   animation-timeline: scroll(root block);
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--pc-accent) 72%, white), var(--pc-accent-strong));
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--pc-accent) 72%, white), var(--pc-accent));
   border-radius: 999px;
   height: 100%;
   transform: scaleX(0);
