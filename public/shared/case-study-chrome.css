@@ -146,8 +146,9 @@ html.portfolio-chrome-dark {
 }
 
 .portfolio-next__media {
+  aspect-ratio: 1672 / 941;
   background: color-mix(in srgb, var(--pc-bg) 86%, var(--pc-fg));
-  min-height: 440px;
+  min-height: 0;
   overflow: hidden;
   position: relative;
 }
@@ -310,7 +311,7 @@ html.portfolio-chrome-dark {
     min-height: 0;
   }
 
-  .portfolio-next__media { min-height: min(70vw, 420px); }
+  .portfolio-next__media { min-height: 0; }
 
   .portfolio-next__copy {
     border-left: 0;

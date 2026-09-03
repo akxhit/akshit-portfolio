@@ -6,29 +6,29 @@
       title: "PrepInsta Prime Web",
       description: "How the revenue-driving web surfaces were rebuilt for more than 10 million monthly learners.",
       href: "/work/prepinsta-web",
-      image: "/portfolio/assets/prepinsta-web.png",
+      image: "/portfolio/assets/prepinsta-web.webp",
       alt: "PrepInsta Prime web case study preview"
     },
     "/case-studies/prepinsta-web": {
-      title: "Cars24 Dealer Auctions",
-      description: "A clearer, more trustworthy auction experience built for faster decisions under pressure.",
-      href: "/work/cars24",
-      image: "/portfolio/assets/cars24.png",
-      alt: "Cars24 dealer auctions case study preview"
-    },
-    "/cars24": {
       title: "ZELTGOLD Jewellery Savings",
       description: "How a two-designer team delivered a trust-sensitive mobile app and launch site in 20 days.",
       href: "/work/zeltgold",
-      image: "/portfolio/assets/zeltgold.png",
+      image: "/portfolio/assets/zeltgold.webp",
       alt: "ZELTGOLD jewellery savings case study preview"
     },
-    "/case-studies/zeltgold": {
+    "/cars24": {
       title: "PrepInsta Prime App",
       description: "A native learning experience designed around one obvious path from intent to progress.",
       href: "/work/prepinsta-app",
-      image: "/portfolio/assets/prepinsta-app.png",
+      image: "/portfolio/assets/prepinsta-app.webp",
       alt: "PrepInsta Prime mobile app case study preview"
+    },
+    "/case-studies/zeltgold": {
+      title: "Cars24 Dealer Auctions",
+      description: "A clearer, more trustworthy auction experience built for faster decisions under pressure.",
+      href: "/work/cars24",
+      image: "/portfolio/assets/cars24.webp",
+      alt: "Cars24 dealer auctions case study preview"
     }
   };
 
