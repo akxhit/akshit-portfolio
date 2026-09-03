@@ -120,17 +120,6 @@ window.SITE = {
      ---------------------------------------------------------------- */
   projects: [
     {
-      title: "ZELTGOLD - Jewellery Savings",
-      description:
-        "Designing a trusted jewellery savings app and launch site in 20 days.",
-      href: "/work/zeltgold",
-      image: "assets/zeltgold.webp",
-      fit: "contain",
-      bgColors: ["#edf0e8", "#386a4f", "#143d2a"],
-      bg: "linear-gradient(160deg, #edf0e8 0%, #5b846d 44%, #143d2a 100%)",
-      alt: "ZELTGOLD jewellery savings app and landing page case study"
-    },
-    {
       title: "PrepInsta Prime — App",
       description:
         "Rebuilding the Prime mobile experience around a single, obvious path to learning.",
@@ -151,6 +140,17 @@ window.SITE = {
       bgColors: ["#ffe6c4", "#6fc0f2", "#1f5fd8"],
       bg: "linear-gradient(160deg, #ffe3c2 0%, #7fc7f5 45%, #2f6fe0 100%)",
       alt: "PrepInsta Prime web platform profile page redesign"
+    },
+    {
+      title: "ZELTGOLD - Jewellery Savings",
+      description:
+        "Designing a trusted jewellery savings app and launch site in 20 days.",
+      href: "/work/zeltgold",
+      image: "assets/zeltgold.webp",
+      fit: "contain",
+      bgColors: ["#edf0e8", "#386a4f", "#143d2a"],
+      bg: "linear-gradient(160deg, #edf0e8 0%, #5b846d 44%, #143d2a 100%)",
+      alt: "ZELTGOLD jewellery savings app and landing page case study"
     },
     {
       title: "Cars24 — Dealer Auctions",
