@@ -1,11 +1,8 @@
 (function () {
   "use strict";
 
-  var transitioning = false;
-
   document.addEventListener("click", function (event) {
     if (
-      transitioning ||
       event.defaultPrevented ||
       event.button !== 0 ||
       event.metaKey ||
@@ -27,7 +24,6 @@
       if (window.parent === window) return;
       event.preventDefault();
       event.stopPropagation();
-      transitioning = true;
 
       if (window.parent.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         window.top.location.assign(destination.href);
@@ -35,10 +31,7 @@
       }
 
       window.parent.sessionStorage.setItem("portfolio-page-transition", "enter");
-      window.parent.document.documentElement.classList.add("is-page-transition-leaving");
-      window.setTimeout(function () {
-        window.top.location.assign(destination.href);
-      }, 700);
+      window.top.location.assign(destination.href);
     } catch {
       window.top.location.assign(destination.href);
     }

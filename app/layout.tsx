@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <head>
-        <script defer src="/shared/page-transition-parent.js?v=portfolio2" />
+        <script defer src="/shared/page-transition-parent.js?v=portfolio3" />
       </head>
       <body>{children}</body>
     </html>
