@@ -21,7 +21,7 @@ export default function ZeltgoldCaseStudy() {
     <main className="case-study-shell">
       <iframe
         className="case-study-frame"
-        src="/case-studies/zeltgold/index.html?v=portfolio4"
+        src="/case-studies/zeltgold/index.html?v=portfolio6"
         title="ZELTGOLD jewellery savings app case study"
       />
     </main>

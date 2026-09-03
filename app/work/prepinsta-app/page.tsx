@@ -10,7 +10,7 @@ export default function PrepInstaAppCaseStudy() {
     <main className="case-study-shell">
       <iframe
         className="case-study-frame"
-        src="/case-studies/prepinsta-app/index.html?v=portfolio4"
+        src="/case-studies/prepinsta-app/index.html?v=portfolio6"
         title="PrepInsta Prime mobile app case study"
       />
     </main>

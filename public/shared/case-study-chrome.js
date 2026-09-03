@@ -86,6 +86,8 @@
   }
 
   function loadCat() {
+    if (document.querySelector("script[data-portfolio-cat-loader]")) return;
+
     window.SITE = window.SITE || {};
     window.SITE.cat = {
       enabled: true,
@@ -104,24 +106,31 @@
     };
 
     var script = document.createElement("script");
+    script.setAttribute("data-portfolio-cat-loader", "true");
     script.src = "/portfolio/cat.js";
     document.body.appendChild(script);
   }
 
   function init() {
-    if (document.querySelector(".portfolio-case-nav")) return;
     var project = currentProject();
     if (!project) return;
     if (window.location.pathname.indexOf("/cars24") === 0) {
       document.documentElement.classList.add("portfolio-chrome-dark");
     }
-    buildNavigation();
-    buildNextProject(project);
+    if (!document.querySelector(".portfolio-case-nav")) buildNavigation();
+    if (!document.querySelector(".portfolio-next")) buildNextProject(project);
     loadCat();
   }
 
-  if (document.readyState === "complete") init();
-  else window.addEventListener("load", function () {
+  function scheduleInit() {
     window.requestAnimationFrame(init);
-  }, { once: true });
+    window.setTimeout(init, 900);
+    window.setTimeout(init, 2200);
+  }
+
+  if (document.readyState === "complete") scheduleInit();
+  else {
+    window.addEventListener("load", scheduleInit, { once: true });
+    window.setTimeout(scheduleInit, 1400);
+  }
 })();

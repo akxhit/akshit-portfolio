@@ -10,7 +10,7 @@ export default function Cars24CaseStudy() {
     <main className="case-study-shell">
       <iframe
         className="case-study-frame"
-        src="/cars24/index.html?v=portfolio4"
+        src="/cars24/index.html?v=portfolio6"
         title="Cars24 dealer auction case study"
       />
     </main>
