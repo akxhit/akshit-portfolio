@@ -1,6 +1,0 @@
-:HL["/case-studies/prepinsta-app/next-assets/static/media/22a5144ee8d83bca-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/case-studies/prepinsta-app/next-assets/static/media/7d4881bb7e1bf84d-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/case-studies/prepinsta-app/next-assets/static/media/c214ffb7f5362987-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/case-studies/prepinsta-app/next-assets/static/css/cf59aeae139767bc.css","style"]
-:HL["/case-studies/prepinsta-app/next-assets/static/css/63f40d3c4d183743.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"pV9gnGYjejHXZK2ig0fXe"}

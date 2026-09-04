@@ -1,7 +1,0 @@
-:HL["/case-studies/zeltgold/next-assets/static/media/22a5144ee8d83bca-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/case-studies/zeltgold/next-assets/static/media/7d4881bb7e1bf84d-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/case-studies/zeltgold/next-assets/static/media/9cc5b37ab1350db7-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/case-studies/zeltgold/next-assets/static/media/e6099e249fd938cc-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/case-studies/zeltgold/next-assets/static/css/df11cc260f1455bd.css","style"]
-:HL["/case-studies/zeltgold/next-assets/static/css/63f40d3c4d183743.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"ZJzKMZ9jUvaQ_IJAk_Ofw"}

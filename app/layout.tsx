@@ -38,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* oxlint-disable-next-line nextjs/no-sync-scripts -- This local bridge must load before iframe navigation. */}
         <script
           src="/shared/page-transition-parent.js?v=portfolio4"
         />
