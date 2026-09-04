@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 export default function Home() {
   return (
     <main className="portfolio-shell">
@@ -9,9 +7,9 @@ export default function Home() {
         title="Akshit Manik product design portfolio"
       />
       <noscript>
-        <Link href="/portfolio/index.html?v=portfolio5">
+        <a href="/portfolio/index.html?v=portfolio5">
           Open Akshit Manik&apos;s portfolio
-        </Link>
+        </a>
       </noscript>
     </main>
   );
