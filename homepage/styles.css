@@ -1582,11 +1582,23 @@ img {
     align-items: center;
     height: 100vh;
     height: 100svh;
-    padding: 6px;
+    padding: 0;
     gap: 0;
   }
   .card__shot {
     grid-row: 2;
+    /* The desktop frame is 780px wide. On a phone, let the media use the
+       card's usable width explicitly instead of inheriting that fixed frame
+       through two padded ancestors. This keeps every project preview at the
+       same, intentional 16:9 size. */
+    width: calc(100vw - 36px);
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .card__shot--contain img,
+  .card__shot--contain video {
+    max-width: 100%;
+    max-height: 100%;
   }
   .card__meta {
     grid-row: 3;
