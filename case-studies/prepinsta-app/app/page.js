@@ -23,7 +23,7 @@ import { M } from '@/lib/media';
 // Checked on the server so the client never fires a request that 404s.
 const HERO_REEL = '/case-studies/prepinsta-app/media/hero-reel.mp4';
 const heroReelReady = fs.existsSync(
-  path.join(process.cwd(), 'public', HERO_REEL),
+  path.join(process.cwd(), 'public', 'media', 'hero-reel.mp4'),
 );
 
 export default function Page() {
