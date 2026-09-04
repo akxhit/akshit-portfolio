@@ -83,17 +83,30 @@
 
       var content = el('div', 'card__content');
 
-      if (p.image) {
+      if (p.image || p.video) {
         var shot = el(
           'div',
           'card__shot' + (p.fit === 'contain' ? ' card__shot--contain' : ''),
         );
-        var img = el('img');
-        img.src = p.image;
-        img.alt = p.alt || p.title;
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        shot.appendChild(img);
+        if (p.video) {
+          var video = el('video');
+          video.src = p.video;
+          if (p.image) video.poster = p.image;
+          video.setAttribute('aria-label', p.alt || p.title);
+          video.autoplay = true;
+          video.loop = true;
+          video.muted = true;
+          video.playsInline = true;
+          video.preload = 'metadata';
+          shot.appendChild(video);
+        } else {
+          var img = el('img');
+          img.src = p.image;
+          img.alt = p.alt || p.title;
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          shot.appendChild(img);
+        }
         content.appendChild(shot);
       }
 

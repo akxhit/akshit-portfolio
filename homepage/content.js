@@ -116,6 +116,8 @@ window.SITE = {
                   gradient behind the card (see gradient.js).
      `bg`       — the flat CSS fallback, shown if WebGL is unavailable.
      `image`    — the screenshot that floats on top. Optional.
+     `video`    — an autoplaying thumbnail video. Optional; takes priority
+                  over `image`, which remains its poster/fallback.
      `fit`      — "cover" (default) or "contain" for tall/phone shots.
      ---------------------------------------------------------------- */
   projects: [
@@ -149,6 +151,7 @@ window.SITE = {
         'Designing a trusted jewellery savings app and launch site in 20 days.',
       href: '/work/zeltgold',
       image: 'assets/zeltgold.png',
+      video: 'assets/zeltgold-thumbnail.mp4',
       fit: 'contain',
       bgColors: ['#edf0e8', '#386a4f', '#143d2a'],
       bg: 'linear-gradient(160deg, #edf0e8 0%, #5b846d 44%, #143d2a 100%)',

@@ -151,7 +151,7 @@
 
     gsap.utils.toArray('.card').forEach(function (card) {
       var paint = card.querySelectorAll('.card__bg, .card__canvas');
-      var shot = card.querySelector('.card__shot img');
+      var shot = card.querySelector('.card__shot img, .card__shot video');
       var veil = document.createElement('div');
       veil.className = 'card__veil';
       card.appendChild(veil);
