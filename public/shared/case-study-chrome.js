@@ -7,7 +7,7 @@
       description:
         'How the revenue-driving web surfaces were rebuilt for more than 10 million monthly learners.',
       href: '/work/prepinsta-web',
-      image: '/portfolio/assets/prepinsta-web.webp',
+      image: '/portfolio/assets/prepinsta-web-thumbnail.webp',
       alt: 'PrepInsta Prime web case study preview',
     },
     '/case-studies/prepinsta-web': {
@@ -15,16 +15,16 @@
       description:
         'How a two-designer team delivered a trust-sensitive mobile app and launch site in 20 days.',
       href: '/work/zeltgold',
-      image: '/portfolio/assets/zeltgold.webp',
+      video: '/portfolio/assets/zeltgold-thumbnail.mp4',
       alt: 'ZELTGOLD jewellery savings case study preview',
     },
     '/cars24': {
-      title: 'PrepInsta Prime App',
+      title: 'InfraOne AI Labs',
       description:
-        'A native learning experience designed around one obvious path from intent to progress.',
-      href: '/work/prepinsta-app',
-      image: '/portfolio/assets/prepinsta-app.webp',
-      alt: 'PrepInsta Prime mobile app case study preview',
+        'A landing experience, identity and launch campaign for an AI education platform.',
+      href: '/work/infraone',
+      image: '/portfolio/assets/infraone-hq.webp',
+      alt: 'InfraOne AI Labs case study preview',
     },
     '/case-studies/zeltgold': {
       title: 'Cars24 Dealer Auctions',
@@ -39,7 +39,7 @@
       description:
         'A native learning experience designed around one obvious path from intent to progress.',
       href: '/work/prepinsta-app',
-      image: '/portfolio/assets/prepinsta-app.webp',
+      video: '/portfolio/assets/prepinsta-mobile-thumbnail.mp4',
       alt: 'PrepInsta Prime mobile app case study preview',
     },
   };
@@ -199,6 +199,18 @@
     var section = document.createElement('section');
     section.className = 'portfolio-next';
     section.setAttribute('aria-labelledby', 'portfolio-next-title');
+    var media = project.video
+      ? '<video class="portfolio-next__video" src="' +
+        project.video +
+        '" aria-label="' +
+        project.alt +
+        '" muted loop autoplay playsinline preload="metadata"></video>'
+      : '<img class="portfolio-next__image" src="' +
+        project.image +
+        '" alt="' +
+        project.alt +
+        '" loading="lazy">';
+
     section.innerHTML =
       '<div class="portfolio-next__inner">' +
       '<span class="portfolio-next__eyebrow">Keep exploring</span>' +
@@ -206,11 +218,7 @@
       project.href +
       '" target="_top">' +
       '<div class="portfolio-next__media">' +
-      '<img class="portfolio-next__image" src="' +
-      project.image +
-      '" alt="' +
-      project.alt +
-      '" loading="lazy">' +
+      media +
       '</div>' +
       '<div class="portfolio-next__copy">' +
       '<div>' +
@@ -238,6 +246,26 @@
         document.body.appendChild(section);
       }
     }
+  }
+
+  function buildFooter() {
+    if (document.querySelector('.portfolio-case-footer')) return;
+
+    var footer = document.createElement('footer');
+    footer.className = 'portfolio-case-footer';
+    footer.innerHTML =
+      '<div class="portfolio-case-footer__inner">' +
+      '<div class="portfolio-case-footer__identity">' +
+      '<span class="portfolio-case-footer__eyebrow">Selected work</span>' +
+      '<strong>Akshit Manik</strong>' +
+      '<p>Product designer working across mobile and web.</p>' +
+      '</div>' +
+      '<div class="portfolio-case-footer__links">' +
+      '<a href="mailto:akshitmanik.design@gmail.com">akshitmanik.design@gmail.com</a>' +
+      '<a href="/" target="_top">All work <span aria-hidden="true">↗</span></a>' +
+      '</div>' +
+      '</div>';
+    document.body.appendChild(footer);
   }
 
   function loadCat() {
@@ -277,7 +305,8 @@
       if (!project) return;
       if (
         !document.querySelector('.portfolio-case-nav') ||
-        !document.querySelector('.portfolio-next')
+        !document.querySelector('.portfolio-next') ||
+        !document.querySelector('.portfolio-case-footer')
       ) {
         if (!scheduleRaf) {
           scheduleRaf = window.requestAnimationFrame(function () {
@@ -298,6 +327,7 @@
     }
     if (!document.querySelector('.portfolio-case-nav')) buildNavigation();
     if (!document.querySelector('.portfolio-next')) buildNextProject(project);
+    if (!document.querySelector('.portfolio-case-footer')) buildFooter();
     loadCat();
     startObserver();
   }

@@ -252,7 +252,8 @@ html.portfolio-chrome-dark {
   position: relative;
 }
 
-.portfolio-next__image {
+.portfolio-next__image,
+.portfolio-next__video {
   height: 100%;
   object-fit: cover;
   position: absolute;
@@ -300,8 +301,76 @@ html.portfolio-chrome-dark {
   padding-bottom: 5px;
 }
 
-.portfolio-next__card:hover .portfolio-next__image {
+.portfolio-next__card:hover .portfolio-next__image,
+.portfolio-next__card:hover .portfolio-next__video {
   transform: scale(1.045);
+}
+
+/* Every standalone study ships its own source footer. The portfolio replaces
+   those variants with one shared footer so the final handoff is consistent. */
+body > main footer:not(.portfolio-case-footer),
+body > footer:not(.portfolio-case-footer) {
+  display: none !important;
+}
+
+.portfolio-case-footer {
+  background: #0d1511;
+  color: #f4f7f5;
+  font-family: var(--pc-font);
+  padding: clamp(44px, 6vw, 84px) clamp(20px, 5vw, 72px);
+}
+
+.portfolio-case-footer__inner {
+  align-items: flex-end;
+  display: flex;
+  gap: 48px;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.portfolio-case-footer__identity strong {
+  display: block;
+  font-size: clamp(34px, 5vw, 68px);
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+.portfolio-case-footer__eyebrow {
+  color: #83d5a2;
+  display: block;
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.portfolio-case-footer__identity p {
+  color: rgb(244 247 245 / 62%);
+  font-size: 15px;
+  margin: 18px 0 0;
+}
+
+.portfolio-case-footer__links {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.portfolio-case-footer__links a {
+  border-bottom: 1px solid rgb(244 247 245 / 35%);
+  color: inherit;
+  font-size: 14px;
+  padding-bottom: 4px;
+  text-decoration: none;
+  transition: border-color 180ms ease;
+}
+
+.portfolio-case-footer__links a:hover,
+.portfolio-case-footer__links a:focus-visible {
+  border-color: currentColor;
 }
 
 .portfolio-next__card:hover .portfolio-next__action span {
@@ -440,6 +509,15 @@ html.portfolio-chrome-dark {
     font-size: clamp(38px, 12vw, 58px);
   }
 
+  .portfolio-case-footer__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .portfolio-case-footer__links {
+    align-items: flex-start;
+  }
+
   .neko,
   .nekopill {
     display: none !important;
@@ -470,6 +548,7 @@ html.portfolio-chrome-dark {
   .portfolio-case-progress__disc,
   .portfolio-case-progress__ring,
   .portfolio-next__image,
+  .portfolio-next__video,
   .portfolio-next__action span,
   .nekoswitch,
   .nekoswitch__thumb {
