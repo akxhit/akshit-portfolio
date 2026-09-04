@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'PrepInsta Prime Mobile App',
-  description: 'Rebuilding the PrepInsta Prime mobile experience around a clear path to learning.',
+  description:
+    'Rebuilding the PrepInsta Prime mobile experience around a clear path to learning.',
 };
 
 export default function PrepInstaAppCaseStudy() {
@@ -10,7 +11,7 @@ export default function PrepInstaAppCaseStudy() {
     <main className="case-study-shell">
       <iframe
         className="case-study-frame"
-        src="/case-studies/prepinsta-app/index.html?v=portfolio6"
+        src="/case-studies/prepinsta-app/index.html?v=portfolio9"
         title="PrepInsta Prime mobile app case study"
       />
     </main>

@@ -47,9 +47,23 @@ export default defineConfig(async () => {
 
   return {
     css: { postcss: { plugins: [tailwindcss()] } },
-    server: isCodexSeatbeltSandbox
-      ? { watch: { useFsEvents: false, usePolling: true } }
-      : undefined,
+    server: {
+      watch: {
+        ignored: [
+          '**/case-studies/**',
+          '**/public/case-studies/**',
+          '**/public/portfolio/**',
+          '**/public/cars24/**',
+          '**/public/assets/**',
+          '**/.wrangler/**',
+          '**/dist/**',
+          '**/.git/**',
+        ],
+        ...(isCodexSeatbeltSandbox
+          ? { useFsEvents: false, usePolling: true }
+          : {}),
+      },
+    },
     plugins: [
       vinext(),
       sites(),

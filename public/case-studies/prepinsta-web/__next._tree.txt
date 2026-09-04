@@ -1,5 +1,6 @@
-:HL["/case-studies/prepinsta-web/_next/static/chunks/3b3zsehtdxf9j.css","style"]
-:HL["/case-studies/prepinsta-web/_next/static/media/21ca8f3f56c22ca2-s.p.1cp9-4nby68jc.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/case-studies/prepinsta-web/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/case-studies/prepinsta-web/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"96XR62hrqJ_POV0EJvxoI"}
+:HL["/case-studies/prepinsta-web/next-assets/static/media/22a5144ee8d83bca-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/case-studies/prepinsta-web/next-assets/static/media/7d4881bb7e1bf84d-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/case-studies/prepinsta-web/next-assets/static/media/c214ffb7f5362987-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/case-studies/prepinsta-web/next-assets/static/css/190bccc23c9283a8.css","style"]
+:HL["/case-studies/prepinsta-web/next-assets/static/css/63f40d3c4d183743.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"54cwMHKgkEv8xTgHMhzzN"}

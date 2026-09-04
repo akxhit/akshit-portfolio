@@ -1,8 +1,12 @@
 @import 'tailwindcss';
 
-:root { color-scheme: dark; }
+:root {
+  color-scheme: dark;
+}
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -18,12 +22,18 @@ html.is-page-transition-entering body {
 }
 
 @keyframes portfolio-page-in {
-  from { clip-path: inset(100% 0 0 0); }
-  to { clip-path: inset(0 0 0 0); }
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html.is-page-transition-entering body { animation: none; }
+  html.is-page-transition-entering body {
+    animation: none;
+  }
 }
 
 .portfolio-shell,

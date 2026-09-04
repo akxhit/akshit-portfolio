@@ -1,4 +1,13 @@
-import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
+import {
+  cp,
+  mkdir,
+  readFile,
+  readdir,
+  rename,
+  rm,
+  stat,
+  writeFile,
+} from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -6,14 +15,15 @@ import sharp from 'sharp';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const siteRoot = path.resolve(here, '..');
-const workspaceRoot = path.resolve(siteRoot, '..');
 const publicRoot = path.join(siteRoot, 'public');
 
 const sources = {
-  homepage: path.join(workspaceRoot, 'Homepage'),
-  mobile: path.join(workspaceRoot, 'PrepInsta Prime Mobile App Case Study'),
-  web: path.join(workspaceRoot, 'PrepInsta Prime Web Case Study'),
-  zeltgold: path.join(workspaceRoot, 'ZeltGold Case study'),
+  homepage: path.join(siteRoot, 'homepage'),
+  cars24: path.join(siteRoot, 'case-studies', 'cars24'),
+  mobile: path.join(siteRoot, 'case-studies', 'prepinsta-app'),
+  web: path.join(siteRoot, 'case-studies', 'prepinsta-web'),
+  zeltgold: path.join(siteRoot, 'case-studies', 'zeltgold'),
+  infraone: path.join(siteRoot, 'case-studies', 'infraone'),
 };
 
 function runBuild(cwd, label) {
@@ -41,41 +51,75 @@ async function requireFile(file) {
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
-  const files = await Promise.all(entries.map(async (entry) => {
-    const target = path.join(directory, entry.name);
-    return entry.isDirectory() ? walk(target) : [target];
-  }));
+  const files = await Promise.all(
+    entries.map(async (entry) => {
+      const target = path.join(directory, entry.name);
+      return entry.isDirectory() ? walk(target) : [target];
+    }),
+  );
   return files.flat();
 }
 
 async function optimizeCaseStudyImages(directory) {
   const files = await walk(directory);
-  const pngs = files.filter((file) => path.extname(file).toLowerCase() === '.png');
+  const pngs = files.filter(
+    (file) => path.extname(file).toLowerCase() === '.png',
+  );
 
   if (pngs.length === 0) return;
 
-  await Promise.all(pngs.map(async (input) => {
-    const output = input.replace(/\.png$/i, '.webp');
-    const image = sharp(input);
-    const metadata = await image.metadata();
-    const width = metadata.width ?? 16000;
-    const height = metadata.height ?? 16000;
-    const pipeline = width > 16000 || height > 16000
-      ? image.resize({ width: 16000, height: 16000, fit: 'inside', withoutEnlargement: true })
-      : image;
-    await pipeline.webp({ quality: 86, effort: 4 }).toFile(output);
-    await rm(input);
-  }));
+  await Promise.all(
+    pngs.map(async (input) => {
+      const output = input.replace(/\.png$/i, '.webp');
+      const image = sharp(input);
+      const metadata = await image.metadata();
+      const width = metadata.width ?? 16000;
+      const height = metadata.height ?? 16000;
+      const pipeline =
+        width > 16000 || height > 16000
+          ? image.resize({
+              width: 16000,
+              height: 16000,
+              fit: 'inside',
+              withoutEnlargement: true,
+            })
+          : image;
+      await pipeline.webp({ quality: 86, effort: 4 }).toFile(output);
+      await rm(input);
+    }),
+  );
 
   const textExtensions = new Set(['.css', '.html', '.js', '.json', '.txt']);
   const generatedFiles = await walk(directory);
-  await Promise.all(generatedFiles
-    .filter((file) => textExtensions.has(path.extname(file).toLowerCase()))
-    .map(async (file) => {
-      const original = await readFile(file, 'utf8');
-      const updated = original.replace(/\.png\b/g, '.webp');
-      if (updated !== original) await writeFile(file, updated, 'utf8');
-    }));
+  await Promise.all(
+    generatedFiles
+      .filter((file) => textExtensions.has(path.extname(file).toLowerCase()))
+      .map(async (file) => {
+        const original = await readFile(file, 'utf8');
+        const updated = original.replace(/\.png\b/g, '.webp');
+        if (updated !== original) await writeFile(file, updated, 'utf8');
+      }),
+  );
+}
+
+async function relocateNextAssets(directory) {
+  const nextDirectory = path.join(directory, '_next');
+  const publicDirectory = path.join(directory, 'next-assets');
+
+  await rm(publicDirectory, { recursive: true, force: true });
+  await rename(nextDirectory, publicDirectory);
+
+  const textExtensions = new Set(['.css', '.html', '.js', '.json', '.txt']);
+  const files = await walk(directory);
+  await Promise.all(
+    files
+      .filter((file) => textExtensions.has(path.extname(file).toLowerCase()))
+      .map(async (file) => {
+        const original = await readFile(file, 'utf8');
+        const updated = original.replaceAll('/_next/', '/next-assets/');
+        if (updated !== original) await writeFile(file, updated, 'utf8');
+      }),
+  );
 }
 
 async function localizeCars24Images(file, assetsDirectory) {
@@ -92,23 +136,34 @@ async function localizeCars24Images(file, assetsDirectory) {
     /https:\/\/framerusercontent\.com\/images\/([A-Za-z0-9_-]+)\.[A-Za-z0-9]+(?:\?[^"'\s,)]*)?/g,
     (url, stem) => {
       const localAsset = assetsByStem.get(stem);
-      return localAsset ? `/assets/${localAsset}` : (localFallbacks.get(stem) ?? url);
+      return localAsset
+        ? `/assets/${localAsset}`
+        : (localFallbacks.get(stem) ?? url);
     },
   );
 
   if (localized !== original) await writeFile(file, localized, 'utf8');
 }
 
-const chromeHead = '<link data-portfolio-chrome rel="stylesheet" href="/shared/case-study-chrome.css?v=portfolio7">';
-const chromeBody = '<!-- portfolio-chrome:start --><script src="/shared/case-study-chrome.js?v=portfolio7"></script><!-- portfolio-chrome:end -->';
-const transitionBridge = '<!-- portfolio-transition:start --><script src="/shared/page-transition-bridge.js?v=portfolio4"></script><!-- portfolio-transition:end -->';
+const chromeHead =
+  '<link data-portfolio-chrome rel="stylesheet" href="/shared/case-study-chrome.css?v=portfolio9">';
+const chromeBody =
+  '<!-- portfolio-chrome:start --><script src="/shared/case-study-chrome.js?v=portfolio9"></script><!-- portfolio-chrome:end -->';
+const transitionBridge =
+  '<!-- portfolio-transition:start --><script src="/shared/page-transition-bridge.js?v=portfolio4"></script><!-- portfolio-transition:end -->';
 
 async function injectCaseStudyChrome(file) {
   let html = await readFile(file, 'utf8');
   html = html
     .replace(/\r?\n?<link data-portfolio-chrome[^>]*>\r?\n?/g, '')
-    .replace(/\r?\n?<!-- portfolio-chrome:start -->[\s\S]*?<!-- portfolio-chrome:end -->\r?\n?/g, '')
-    .replace(/\r?\n?<!-- portfolio-transition:start -->[\s\S]*?<!-- portfolio-transition:end -->\r?\n?/g, '')
+    .replace(
+      /\r?\n?<!-- portfolio-chrome:start -->[\s\S]*?<!-- portfolio-chrome:end -->\r?\n?/g,
+      '',
+    )
+    .replace(
+      /\r?\n?<!-- portfolio-transition:start -->[\s\S]*?<!-- portfolio-transition:end -->\r?\n?/g,
+      '',
+    )
     .replace(/[ \t\r\n]+(?=<\/head>)/, '');
 
   if (!html.includes('</head>') || !html.includes('</body>')) {
@@ -123,8 +178,12 @@ async function injectCaseStudyChrome(file) {
 
 async function injectTransitionBridge(file) {
   let html = await readFile(file, 'utf8');
-  html = html.replace(/\r?\n?<!-- portfolio-transition:start -->[\s\S]*?<!-- portfolio-transition:end -->\r?\n?/g, '');
-  if (!html.includes('</body>')) throw new Error(`Could not find a complete HTML document at ${file}`);
+  html = html.replace(
+    /\r?\n?<!-- portfolio-transition:start -->[\s\S]*?<!-- portfolio-transition:end -->\r?\n?/g,
+    '',
+  );
+  if (!html.includes('</body>'))
+    throw new Error(`Could not find a complete HTML document at ${file}`);
   html = html.replace('</body>', `\n${transitionBridge}\n</body>`);
   await writeFile(file, html, 'utf8');
 }
@@ -132,11 +191,40 @@ async function injectTransitionBridge(file) {
 runBuild(sources.mobile, 'PrepInsta mobile case study');
 runBuild(sources.web, 'PrepInsta web case study');
 runBuild(sources.zeltgold, 'ZELTGOLD case study');
+runBuild(sources.infraone, 'InfraOne case study');
 
 await replaceDirectory(sources.homepage, path.join(publicRoot, 'portfolio'));
-await replaceDirectory(path.join(sources.mobile, 'out'), path.join(publicRoot, 'case-studies', 'prepinsta-app'));
-await replaceDirectory(path.join(sources.web, 'out'), path.join(publicRoot, 'case-studies', 'prepinsta-web'));
-await replaceDirectory(path.join(sources.zeltgold, 'out'), path.join(publicRoot, 'case-studies', 'zeltgold'));
+await replaceDirectory(
+  path.join(sources.cars24, 'site'),
+  path.join(publicRoot, 'cars24'),
+);
+await replaceDirectory(
+  path.join(sources.cars24, 'assets'),
+  path.join(publicRoot, 'assets'),
+);
+await replaceDirectory(
+  path.join(sources.mobile, 'out'),
+  path.join(publicRoot, 'case-studies', 'prepinsta-app'),
+);
+await replaceDirectory(
+  path.join(sources.web, 'out'),
+  path.join(publicRoot, 'case-studies', 'prepinsta-web'),
+);
+await replaceDirectory(
+  path.join(sources.zeltgold, 'out'),
+  path.join(publicRoot, 'case-studies', 'zeltgold'),
+);
+await replaceDirectory(
+  path.join(sources.infraone, 'out'),
+  path.join(publicRoot, 'case-studies', 'infraone'),
+);
+
+await Promise.all([
+  relocateNextAssets(path.join(publicRoot, 'case-studies', 'prepinsta-app')),
+  relocateNextAssets(path.join(publicRoot, 'case-studies', 'prepinsta-web')),
+  relocateNextAssets(path.join(publicRoot, 'case-studies', 'zeltgold')),
+  relocateNextAssets(path.join(publicRoot, 'case-studies', 'infraone')),
+]);
 
 await localizeCars24Images(
   path.join(publicRoot, 'cars24', 'index.html'),
@@ -144,36 +232,64 @@ await localizeCars24Images(
 );
 
 await Promise.all([
-  optimizeCaseStudyImages(path.join(publicRoot, 'case-studies', 'prepinsta-app')),
-  optimizeCaseStudyImages(path.join(publicRoot, 'case-studies', 'prepinsta-web')),
+  optimizeCaseStudyImages(
+    path.join(publicRoot, 'case-studies', 'prepinsta-app'),
+  ),
+  optimizeCaseStudyImages(
+    path.join(publicRoot, 'case-studies', 'prepinsta-web'),
+  ),
   optimizeCaseStudyImages(path.join(publicRoot, 'cars24')),
   optimizeCaseStudyImages(path.join(publicRoot, 'case-studies', 'zeltgold')),
+  optimizeCaseStudyImages(path.join(publicRoot, 'case-studies', 'infraone')),
   optimizeCaseStudyImages(path.join(publicRoot, 'portfolio')),
 ]);
 
 await Promise.all([
   requireFile(path.join(publicRoot, 'portfolio', 'index.html')),
-  requireFile(path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html')),
-  requireFile(path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html')),
+  requireFile(
+    path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html'),
+  ),
+  requireFile(
+    path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html'),
+  ),
   requireFile(path.join(publicRoot, 'cars24', 'index.html')),
   requireFile(path.join(publicRoot, 'case-studies', 'zeltgold', 'index.html')),
+  requireFile(path.join(publicRoot, 'case-studies', 'infraone', 'index.html')),
   requireFile(path.join(publicRoot, 'shared', 'case-study-chrome.css')),
   requireFile(path.join(publicRoot, 'shared', 'case-study-chrome.js')),
 ]);
 
 await Promise.all([
-  injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html')),
-  injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html')),
+  injectCaseStudyChrome(
+    path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html'),
+  ),
+  injectCaseStudyChrome(
+    path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html'),
+  ),
   injectCaseStudyChrome(path.join(publicRoot, 'cars24', 'index.html')),
-  injectCaseStudyChrome(path.join(publicRoot, 'case-studies', 'zeltgold', 'index.html')),
+  injectCaseStudyChrome(
+    path.join(publicRoot, 'case-studies', 'zeltgold', 'index.html'),
+  ),
+  injectCaseStudyChrome(
+    path.join(publicRoot, 'case-studies', 'infraone', 'index.html'),
+  ),
 ]);
 
 await Promise.all([
   injectTransitionBridge(path.join(publicRoot, 'portfolio', 'index.html')),
-  injectTransitionBridge(path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html')),
-  injectTransitionBridge(path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html')),
-  injectTransitionBridge(path.join(publicRoot, 'case-studies', 'zeltgold', 'index.html')),
+  injectTransitionBridge(
+    path.join(publicRoot, 'case-studies', 'prepinsta-app', 'index.html'),
+  ),
+  injectTransitionBridge(
+    path.join(publicRoot, 'case-studies', 'prepinsta-web', 'index.html'),
+  ),
+  injectTransitionBridge(
+    path.join(publicRoot, 'case-studies', 'zeltgold', 'index.html'),
+  ),
+  injectTransitionBridge(
+    path.join(publicRoot, 'case-studies', 'infraone', 'index.html'),
+  ),
   injectTransitionBridge(path.join(publicRoot, 'cars24', 'index.html')),
 ]);
 
-console.log('Portfolio homepage and all four case studies are ready.');
+console.log('Portfolio homepage and all five case studies are ready.');
