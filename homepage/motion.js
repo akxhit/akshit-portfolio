@@ -148,6 +148,11 @@
 
   function initCards() {
     if (!window.ScrollTrigger) return;
+    if (
+      window.matchMedia &&
+      window.matchMedia('(max-width: 809.98px)').matches
+    )
+      return;
 
     gsap.utils.toArray('.card').forEach(function (card) {
       var paint = card.querySelectorAll('.card__bg, .card__canvas');

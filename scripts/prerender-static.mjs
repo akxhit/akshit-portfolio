@@ -63,7 +63,7 @@ const routes = [
     url: '/',
     title: 'Akshit Manik | Product Designer',
     desc: 'Product designer working across mobile and web. Explore selected case studies for ZELTGOLD, PrepInsta Prime, and Cars24.',
-    iframeSrc: '/portfolio/index.html?v=portfolio5',
+    iframeSrc: '/portfolio/index.html?v=portfolio6',
     iframeTitle: 'Akshit Manik product design portfolio',
     isHome: true,
     files: ['index.html'],
@@ -120,14 +120,14 @@ function generateFallbackHtml(r) {
     <meta name="description" content="${r.desc}" />
     <meta property="og:title" content="${r.title}" />
     <meta property="og:description" content="${r.desc}" />
-    <meta property="og:image" content="https://akshit.work/og.png" />
+    <meta property="og:image" content="https://akshit-portfolio-rho.vercel.app/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Akshit Manik product design portfolio" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${r.title}" />
     <meta name="twitter:description" content="${r.desc}" />
-    <meta name="twitter:image" content="https://akshit.work/og.png" />
+    <meta name="twitter:image" content="https://akshit-portfolio-rho.vercel.app/og.png" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="${cssHref}" />
     <style>${inlineStyles}</style>
