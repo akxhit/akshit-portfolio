@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build && node scripts/prerender-static.mjs",
+  "outputDirectory": "dist/client",
+  "cleanUrls": true
+}
