@@ -8,10 +8,10 @@ export const metadata: Metadata = {
 
 export default function Cars24CaseStudy() {
   return (
-    <main className="case-study-shell">
+    <main className="case-study-shell cars24-shell">
       <iframe
-        className="case-study-frame"
-        src="/cars24/index.html?v=portfolio9"
+        className="case-study-frame cars24-frame"
+        src="/cars24/index.html?v=portfolio10"
         title="Cars24 dealer auction case study"
       />
     </main>

@@ -53,6 +53,19 @@ html.is-page-transition-entering body {
   width: 100%;
 }
 
+@media (max-width: 809.98px) {
+  .cars24-shell {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cars24-frame {
+    min-width: 1440px;
+    width: 1440px;
+  }
+}
+
 noscript {
   color: white;
   font-family: sans-serif;

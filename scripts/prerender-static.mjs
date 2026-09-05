@@ -49,6 +49,17 @@ const inlineStyles = `
     height: 100%;
     width: 100%;
   }
+  @media (max-width: 809.98px) {
+    .cars24-shell {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cars24-frame {
+      min-width: 1440px;
+      width: 1440px;
+    }
+  }
   noscript {
     color: white;
     font-family: sans-serif;
@@ -72,8 +83,9 @@ const routes = [
     url: '/work/cars24',
     title: 'Cars24 Dealer Auctions | Akshit Manik',
     desc: 'A product design case study focused on trust, transparency, and energy in the Cars24 dealer auction experience.',
-    iframeSrc: '/cars24/index.html?v=portfolio9',
+    iframeSrc: '/cars24/index.html?v=portfolio10',
     iframeTitle: 'Cars24 dealer auction case study',
+    desktopOnMobile: true,
     files: ['work/cars24.html', 'work/cars24/index.html'],
   },
   {
@@ -134,8 +146,8 @@ function generateFallbackHtml(r) {
     <script src="/shared/page-transition-parent.js?v=portfolio4"></script>
   </head>
   <body>
-    <main class="${r.isHome ? 'portfolio-shell' : 'case-study-shell'}">
-      <iframe class="${r.isHome ? 'portfolio-frame' : 'case-study-frame'}" src="${r.iframeSrc}" title="${r.iframeTitle}"></iframe>
+    <main class="${r.isHome ? 'portfolio-shell' : `case-study-shell${r.desktopOnMobile ? ' cars24-shell' : ''}`}">
+      <iframe class="${r.isHome ? 'portfolio-frame' : `case-study-frame${r.desktopOnMobile ? ' cars24-frame' : ''}`}" src="${r.iframeSrc}" title="${r.iframeTitle}"></iframe>
       ${r.isHome ? `<noscript><a href="${r.iframeSrc}">Open Akshit Manik's portfolio</a></noscript>` : ''}
     </main>
   </body>
