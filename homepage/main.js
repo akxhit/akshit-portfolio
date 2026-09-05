@@ -67,8 +67,6 @@
     var wrap = $('#projects');
     if (!wrap) return;
     wrap.innerHTML = '';
-    var compactCards =
-      window.matchMedia && window.matchMedia('(max-width: 809.98px)').matches;
 
     S.projects.forEach(function (p) {
       var a = el('a', 'card');
@@ -90,7 +88,7 @@
           'div',
           'card__shot' + (p.fit === 'contain' ? ' card__shot--contain' : ''),
         );
-        if (p.video && !compactCards) {
+        if (p.video) {
           var video = el('video');
           video.src = p.video;
           if (p.image) video.poster = p.image;
