@@ -4,12 +4,11 @@
  * App Store / Play Store badges, drawn rather than dropped in as PNGs so they
  * take the page's own radius, border and hover behaviour and stay crisp at any
  * density.
- *
- * TODO(akshit): swap the two href values for the real listings.
  */
 
-const APP_STORE = '#';
-const PLAY_STORE = '#';
+const APP_STORE = 'https://apps.apple.com/in/app/prepinsta/id6742322105';
+const PLAY_STORE =
+  'https://play.google.com/store/search?q=prepinsta&c=apps&hl=en_IN';
 
 function Apple() {
   return (

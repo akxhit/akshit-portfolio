@@ -1,0 +1,326 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+.portfolio-case-footer.footer.closing {--font-ui:Inter,Arial,sans-serif;font-family:'Schibsted Grotesk',Arial,sans-serif;max-width:none;margin:0;border-radius:0;position:relative;text-align:left}
+.portfolio-case-footer *, .portfolio-case-footer *::before, .portfolio-case-footer *::after {box-sizing:border-box}
+.portfolio-case-footer :is(h2,p){margin:0;padding:0}
+.portfolio-case-footer a {text-decoration:none}
+.portfolio-case-footer button {font:inherit;text-transform:none;box-shadow:none}
+/* Quiet material studies around the work. Silk is progressively enhanced. */
+.portfolio-case-footer  {
+  background: var(--card-bg);
+}
+.portfolio-case-footer  {
+  background-image: var(--silk-poster, var(--card-bg));
+}
+.portfolio-case-footer  {
+  --silk-poster: url('assets/silk-sage.webp?v=eucalyptus1');
+}
+.portfolio-case-footer  {
+  --silk-poster: url('assets/silk-chalk.webp');
+}
+.portfolio-case-footer  {
+  --silk-poster: url('assets/silk-olive.webp');
+}
+.portfolio-case-footer  {
+  --silk-poster: url('assets/silk-navy.webp');
+}
+.portfolio-case-footer  {
+  --silk-poster: url('assets/silk-umber.webp');
+}
+.portfolio-case-footer  {
+  text-shadow: none;
+}
+.portfolio-case-footer  {
+  opacity: 0.88;
+}
+.portfolio-case-footer  {
+  box-shadow: 0 22px 48px -28px #071c2e75;
+}
+
+/* A studio sign-off: invitation, a living signature, then the useful details. */
+.portfolio-case-footer.footer.closing {
+  --closing-ink: #eff2df;
+  --closing-soft: #b8c3b0;
+  --closing-lime: #d5f68b;
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: 52px 48px 26px;
+  color: var(--closing-ink);
+  background: #10261c;
+  border: 1px solid #2d4433;
+  overflow: hidden;
+}
+.portfolio-case-footer .closing-head {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  align-items: end;
+  gap: 48px;
+}
+.portfolio-case-footer .closing-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--closing-soft);
+  font: 400 12px/1.5 var(--font-ui);
+}
+.portfolio-case-footer .closing-status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--closing-lime);
+}
+.portfolio-case-footer.closing h2 {
+  margin-top: 22px;
+  font-size: clamp(42px, 4.5vw, 76px);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+}
+.portfolio-case-footer.closing h2 em {
+  font:
+    italic 1.12em/0.9 Georgia,
+    serif;
+  font-weight: 400;
+  color: var(--closing-lime);
+}
+.portfolio-case-footer .closing-contact {
+  justify-self: end;
+  width: min(100%, 332px);
+  padding-bottom: 4px;
+}
+.portfolio-case-footer .closing-contact > p {
+  color: var(--closing-soft);
+  font-size: 16px;
+  line-height: 1.55;
+  margin-bottom: 22px;
+}
+.portfolio-case-footer .closing-email {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border: 1px solid var(--closing-lime);
+  border-radius: 10px;
+  color: #16301e;
+  background: var(--closing-lime);
+  font-size: 18px;
+  font-weight: 500;
+  transition:
+    background 180ms ease-out,
+    transform 180ms ease-out;
+}
+.portfolio-case-footer .closing-email > span {
+  font-size: 26px;
+  line-height: 1;
+}
+.portfolio-case-footer .closing-email:hover {
+  background: #e4ffaf;
+}
+.portfolio-case-footer .closing-email:active {
+  transform: translateY(2px);
+}
+.portfolio-case-footer .closing-address {
+  display: block;
+  margin-top: 12px;
+  color: var(--closing-soft);
+  font: 400 12px/1.5 var(--font-ui);
+}
+.portfolio-case-footer .closing-signature {
+  margin-top: 40px;
+}
+.portfolio-case-footer .ascii-signature {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: clamp(230px, 25vw, 390px);
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  overflow: hidden;
+  color: var(--closing-lime);
+  background: #10261c;
+  cursor: crosshair;
+  touch-action: pan-y;
+}
+.portfolio-case-footer .ascii-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.portfolio-case-footer .ascii-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  font-size: clamp(100px, 24vw, 380px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.08em;
+}
+.portfolio-case-footer .ascii-signature.is-ready .ascii-fallback {
+  visibility: hidden;
+}
+.portfolio-case-footer .signature-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  font: 400 12px/1.5 var(--font-ui);
+  color: var(--closing-soft);
+}
+.portfolio-case-footer .signature-hint {
+  color: var(--closing-lime);
+}
+.portfolio-case-footer .signature-hint > span {
+  margin-left: 12px;
+}
+.portfolio-case-footer .closing-bottom {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 38px;
+  padding-top: 24px;
+  border-top: 1px solid #bfd6ad26;
+  font: 400 12px/1.5 var(--font-ui);
+  color: var(--closing-soft);
+}
+.portfolio-case-footer .closing-time {
+  font-variant-numeric: tabular-nums;
+}
+.portfolio-case-footer #footer-socials {
+  display: flex;
+  gap: 24px;
+  margin-left: auto;
+}
+.portfolio-case-footer .closing-social {
+  display: inline-flex;
+  gap: 12px;
+  padding-block: 10px;
+  color: var(--closing-ink);
+}
+.portfolio-case-footer .closing-social:hover {
+  color: var(--closing-lime);
+}
+.portfolio-case-footer.closing .closing-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  width: auto;
+  height: auto;
+  min-height: 44px;
+  padding: 8px 0 8px 22px;
+  background: none;
+  border: 0;
+  border-left: 1px solid #bfd6ad26;
+  border-radius: 0;
+  color: var(--closing-ink);
+  font: inherit;
+}
+.portfolio-case-footer.closing .closing-top:hover {
+  color: var(--closing-lime);
+}
+.portfolio-case-footer.closing .closing-top:active {
+  transform: translateY(1px);
+}
+.portfolio-case-footer.closing :is(a, button):focus-visible {
+  outline: 2px solid var(--closing-lime);
+  outline-offset: 5px;
+}
+@media (max-width: 809.98px) {
+  .portfolio-case-footer  {
+    background-image: var(--silk-poster, var(--card-bg));
+    background-size: cover;
+    background-position: center;
+  }
+  .portfolio-case-footer  {
+    text-shadow: none;
+  }
+  .portfolio-case-footer  {
+    background: transparent;
+    padding: 0;
+  }
+  .portfolio-case-footer.footer.closing {
+    padding: 28px 22px 22px;
+    border-radius: 20px;
+  }
+  .portfolio-case-footer .closing-head {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .portfolio-case-footer.closing h2 {
+    font-size: clamp(40px, 9vw, 60px);
+    margin-top: 18px;
+  }
+  .portfolio-case-footer .closing-contact {
+    justify-self: start;
+    width: 100%;
+  }
+  .portfolio-case-footer .closing-contact > p {
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+  .portfolio-case-footer .closing-contact > p br {
+    display: none;
+  }
+  .portfolio-case-footer .closing-email {
+    padding: 12px 16px;
+  }
+  .portfolio-case-footer .closing-signature {
+    margin-top: 26px;
+  }
+  .portfolio-case-footer .ascii-signature {
+    height: clamp(120px, 32vw, 230px);
+  }
+  .portfolio-case-footer .ascii-fallback {
+    font-size: 24vw;
+  }
+  .portfolio-case-footer .signature-caption {
+    font-size: 10px;
+    margin-top: 8px;
+    gap: 10px;
+  }
+  .portfolio-case-footer .signature-caption > span:first-child {
+    max-width: 17ch;
+  }
+  .portfolio-case-footer .signature-hint {
+    align-self: end;
+  }
+  .portfolio-case-footer .signature-hint > span {
+    margin-left: 4px;
+  }
+  .portfolio-case-footer .closing-bottom {
+    margin-top: 26px;
+    padding-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px 12px;
+    font-size: 11px;
+  }
+  .portfolio-case-footer .closing-time {
+    text-align: right;
+  }
+  .portfolio-case-footer #footer-socials {
+    margin-left: 0;
+    gap: 20px;
+  }
+  .portfolio-case-footer.closing .closing-top {
+    padding-left: 12px;
+    gap: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-case-footer.closing * {
+    transition: none !important;
+  }
+  .portfolio-case-footer .signature-hint {
+    display: none;
+  }
+  .portfolio-case-footer .ascii-signature {
+    cursor: default;
+  }
+}
+

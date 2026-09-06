@@ -3,12 +3,12 @@ export default function Home() {
     <main className="portfolio-shell">
       <iframe
         className="portfolio-frame"
-        src="/portfolio/index.html?v=portfolio6"
+        src="/portfolio/index.html?v=portfolio10"
         title="Akshit Manik product design portfolio"
       />
       <noscript>
         {/* oxlint-disable-next-line nextjs/no-html-link-for-pages -- Static fallback when React and Next navigation are unavailable. */}
-        <a href="/portfolio/index.html?v=portfolio6">
+        <a href="/portfolio/index.html?v=portfolio10">
           Open Akshit Manik&apos;s portfolio
         </a>
       </noscript>

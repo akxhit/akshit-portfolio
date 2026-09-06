@@ -67,6 +67,7 @@
     var wrap = $('#projects');
     if (!wrap) return;
     wrap.innerHTML = '';
+    var deferredVideos = [];
 
     S.projects.forEach(function (p) {
       var a = el('a', 'card');
@@ -74,7 +75,9 @@
       a.setAttribute('aria-label', p.title + ' — case study');
       if (p.bg) a.style.setProperty('--card-bg', p.bg);
       if (p.textColor) a.style.setProperty('--card-copy', p.textColor);
-      // gradient.js picks these up and paints the animated version on top
+      a.dataset.surface = p.surface;
+      a.dataset.rotation = p.silkRotation || 0;
+      // React Bits Silk uses the brand palette behind the thumbnail.
       if (p.bgColors && p.bgColors.length) {
         a.setAttribute('data-colors', p.bgColors.join(','));
       }
@@ -90,14 +93,15 @@
         );
         if (p.video) {
           var video = el('video');
-          video.src = p.video;
+          video.dataset.src = p.video;
           if (p.image) video.poster = p.image;
           video.setAttribute('aria-label', p.alt || p.title);
           video.autoplay = true;
           video.loop = true;
           video.muted = true;
           video.playsInline = true;
-          video.preload = 'metadata';
+          video.preload = 'none';
+          deferredVideos.push(video);
           shot.appendChild(video);
         } else {
           var img = el('img');
@@ -123,11 +127,40 @@
       a.appendChild(track);
       wrap.appendChild(a);
     });
+
+    function loadVideo(video) {
+      if (!video.dataset.src) return;
+      video.src = video.dataset.src;
+      delete video.dataset.src;
+      video.load();
+      var playback = video.play();
+      if (playback && playback.catch) playback.catch(function () {});
+    }
+
+    if (!window.IntersectionObserver) {
+      deferredVideos.forEach(loadVideo);
+      return;
+    }
+
+    var videoObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          loadVideo(entry.target);
+          videoObserver.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '400px 0px' },
+    );
+    deferredVideos.forEach(function (video) {
+      videoObserver.observe(video);
+    });
   }
 
   /* ============================== SIDEBAR ============================= */
 
   function renderIdentity() {
+    if (document.querySelector('.studio')) return;
     var badges = $('#badges');
     (S.badges || []).forEach(function (b) {
       var n = el('span', 'badge');
@@ -246,7 +279,7 @@
     if (S.calendarUrl) {
       var t = $('.cp-toggle');
       t.hidden = false;
-      $('.cp-call iframe').src = S.calendarUrl;
+      $('.cp-call iframe').dataset.src = S.calendarUrl;
     }
 
     var socials = $('#socials');
@@ -263,150 +296,46 @@
 
   /* =============================== FOOTER ============================= */
 
-  /* eye = [leftX, rightX, y, radius] so each shape gets a face that
-     actually sits inside it */
-  var STICKERS = [
-    {
-      s: 111,
-      rot: -8,
-      fill: '#8ed081',
-      eye: [40, 62, 46, 8.5],
-      d: 'M50 4c9 0 12 8 18 8s10-6 17-2 4 13 9 18 13 6 13 15-8 12-8 19 6 11 2 18-13 4-18 9-6 13-15 13-12-8-19-8-11 6-18 2-4-13-9-18-13-6-13-15 8-12 8-19-6-11-2-18 13-4 18-9S41 4 50 4Z',
-    },
-    {
-      s: 116,
-      rot: 6,
-      fill: '#5b9bf5',
-      eye: [41, 62, 47, 8.5],
-      d: 'M58 3c6 0 9 14 14 16s17-6 21-1-5 16-4 22 13 12 11 18-16 6-20 11-2 19-8 21-13-9-19-9-14 11-19 8-1-16-5-21-18-5-18-12 13-11 14-17-8-17-3-21 15 6 21 4S52 3 58 3Z',
-    },
-    {
-      s: 96,
-      rot: -4,
-      fill: '#e8615f',
-      eye: [39, 61, 43, 8],
-      d: 'M50 92C28 76 8 62 8 40 8 24 20 13 34 13c9 0 15 5 16 10 1-5 7-10 16-10 14 0 26 11 26 27 0 22-20 36-42 52Z',
-    },
-    {
-      s: 107,
-      rot: 9,
-      fill: '#f08b3c',
-      eye: [39, 61, 47, 8.5],
-      d: 'M22 22h56c8 0 14 6 14 14v30c0 8-6 14-14 14H58l-16 14c-3 3-8 1-8-3V80H22c-8 0-14-6-14-14V36c0-8 6-14 14-14Z',
-    },
-    {
-      s: 106,
-      rot: -10,
-      fill: '#ffcf3f',
-      eye: [42, 60, 44, 7.6],
-      d: 'M50 5 62 31l28 4-20 19 5 28-25-13-25 13 5-28-20-19 28-4z',
-    },
-  ];
-
   function renderFooter() {
     $('#place').textContent = S.footer.location;
-    $('#quote').textContent = S.footer.quote;
     $('#copyright').textContent = S.footer.copyright;
-
-    var box = $('#stickers');
-    STICKERS.forEach(function (st) {
-      var d = el('div', 'sticker');
-      d.style.setProperty('--s', st.s + 'px');
-      d.style.setProperty('--rot', st.rot + 'deg');
-      var lx = st.eye[0],
-        rx = st.eye[1],
-        ey = st.eye[2],
-        er = st.eye[3];
-      var pr = er * 0.42,
-        po = er * 0.2;
-      d.innerHTML =
-        '<svg viewBox="0 0 100 100" aria-hidden="true">' +
-        '<path d="' +
-        st.d +
-        '" fill="' +
-        st.fill +
-        '" stroke="#212121" stroke-width="4" stroke-linejoin="round"/>' +
-        '<circle cx="' +
-        lx +
-        '" cy="' +
-        ey +
-        '" r="' +
-        er +
-        '" fill="#fff" stroke="#212121" stroke-width="3.4"/>' +
-        '<circle cx="' +
-        rx +
-        '" cy="' +
-        ey +
-        '" r="' +
-        er +
-        '" fill="#fff" stroke="#212121" stroke-width="3.4"/>' +
-        '<circle cx="' +
-        (lx + po) +
-        '" cy="' +
-        (ey + po) +
-        '" r="' +
-        pr +
-        '" fill="#212121"/>' +
-        '<circle cx="' +
-        (rx + po) +
-        '" cy="' +
-        (ey + po) +
-        '" r="' +
-        pr +
-        '" fill="#212121"/>' +
-        '</svg>';
-      box.appendChild(d);
+    var email = $('#footer-email');
+    email.href = 'mailto:' + S.email;
+    $('#footer-email-address').textContent = S.email;
+    var socials = $('#footer-socials');
+    S.socials.forEach(function (social) {
+      var link = el('a', 'closing-social', social.name);
+      link.href = social.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.appendChild(el('span', '', '↗'));
+      socials.appendChild(link);
     });
-
     var clock = $('#clock');
     function tick() {
-      var opts = {
+      clock.textContent = new Intl.DateTimeFormat('en-US', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,
-        month: 'short',
-        day: '2-digit',
-        year: 'numeric',
-      };
-      if (S.footer.timeZone) opts.timeZone = S.footer.timeZone;
-      var parts;
-      try {
-        parts = new Intl.DateTimeFormat('en-US', opts).formatToParts(
-          new Date(),
-        );
-      } catch (err) {
-        delete opts.timeZone;
-        parts = new Intl.DateTimeFormat('en-US', opts).formatToParts(
-          new Date(),
-        );
-      }
-      var g = function (t) {
-        var p = parts.find(function (x) {
-          return x.type === t;
-        });
-        return p ? p.value : '';
-      };
-      clock.textContent =
-        g('hour') +
-        ':' +
-        g('minute') +
-        ' ' +
-        g('dayPeriod').toUpperCase() +
-        ' - ' +
-        g('month') +
-        ' ' +
-        g('day') +
-        ' ' +
-        g('year');
+        timeZone: S.footer.timeZone || 'Asia/Kolkata',
+      }).format(new Date());
     }
     tick();
-    setInterval(tick, 15000);
-
+    var timer = setInterval(tick, 30000);
+    window.addEventListener('pagehide', function () {
+      clearInterval(timer);
+    });
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted) {
+        tick();
+        timer = setInterval(tick, 30000);
+      }
+    });
     $('.totop').addEventListener('click', function () {
-      // motion.js publishes the Lenis instance; once it exists it owns
-      // scrolling and window.scrollTo silently does nothing.
-      if (window.__lenis) window.__lenis.scrollTo(0);
-      else window.scrollTo({ top: 0, behavior: 'smooth' });
+      var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: reduced });
+      else
+        window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' });
     });
   }
 
@@ -499,6 +428,11 @@
       toggle.addEventListener('click', function () {
         var showingCall = !call.hidden;
         call.hidden = showingCall;
+        var iframe = call.querySelector('iframe');
+        if (!showingCall && iframe.dataset.src) {
+          iframe.src = iframe.dataset.src;
+          delete iframe.dataset.src;
+        }
         form.hidden = !showingCall;
         $('.cp-toggle__label').textContent = showingCall
           ? 'Book a Call instead'

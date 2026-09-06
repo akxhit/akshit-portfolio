@@ -74,7 +74,7 @@ const routes = [
     url: '/',
     title: 'Akshit Manik | Product Designer',
     desc: 'Product designer working across mobile and web. Explore selected case studies for ZELTGOLD, PrepInsta Prime, and Cars24.',
-    iframeSrc: '/portfolio/index.html?v=portfolio6',
+    iframeSrc: '/portfolio/index.html?v=portfolio10',
     iframeTitle: 'Akshit Manik product design portfolio',
     isHome: true,
     files: ['index.html'],

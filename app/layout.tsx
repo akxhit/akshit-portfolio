@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   description:
     'Product designer working across mobile and web. Explore selected case studies for ZELTGOLD, PrepInsta Prime, and Cars24.',
-  icons: { icon: '/favicon.svg' },
+  icons: { icon: { url: '/favicon.png', type: 'image/png' } },
   openGraph: {
     title: 'Akshit Manik | Product Designer',
     description:

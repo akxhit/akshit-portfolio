@@ -79,11 +79,6 @@ export const IMPACT = [
     why: "The empty state became a browse surface — popular searches and eleven categories — so nobody had to already know the catalogue's vocabulary.",
   },
   {
-    k: 'Upgrade requests from profile',
-    v: '2.4×',
-    why: 'Plan expiry, days remaining and an upgrade ladder now sit on the page students already visit to resume a course.',
-  },
-  {
     k: 'Plan & expiry support tickets',
     v: '−46%',
     why: '“When does my plan end?” was the single most common ticket. It is now a line on the profile, with the certificate claimable in place.',

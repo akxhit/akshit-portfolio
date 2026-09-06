@@ -31,10 +31,20 @@ window.SITE = {
   /* ---- contact ------------------------------------------------- */
   email: 'akshitmanik.design@gmail.com',
   spotsLeft: 'open to work',
-  calendarUrl: '', // e.g. "https://cal.com/you/30min" — blank hides "Book a Call instead"
+  resumeUrl:
+    'https://drive.google.com/file/d/1H1tXxTGL6Qs37J4SB_IfUM_S7G7P5P_j/view?usp=sharing',
+  calendarUrl: 'https://cal.com/akshit-manik/30min?user=akshit-manik',
   socials: [
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/', icon: 'linkedin' },
-    { name: 'X', url: 'https://x.com/', icon: 'x' },
+    {
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/akshitmanik/',
+      icon: 'linkedin',
+    },
+    {
+      name: 'X',
+      url: 'https://x.com/intent/follow?screen_name=whyakshit',
+      icon: 'x',
+    },
   ],
 
   /* ---- about panel (the dark one) ------------------------------ */
@@ -112,8 +122,8 @@ window.SITE = {
      Add a third case study by appending one object. Nothing else
      needs to change — the column, the cards and the parallax all
      read from this array.
-     `bgColors` — three hex stops. These feed the animated WebGL
-                  gradient behind the card (see gradient.js).
+     `bgColors` — shadow, body and highlight colours for the React Bits Silk
+                  surface behind the card (see gradient.js).
      `bg`       — the flat CSS fallback, shown if WebGL is unavailable.
      `image`    — the screenshot that floats on top. Optional.
      `video`    — an autoplaying thumbnail video. Optional; takes priority
@@ -126,12 +136,14 @@ window.SITE = {
       description:
         'Rebuilding the Prime mobile experience around a single, obvious path to learning.',
       href: '/work/prepinsta-app',
+      surface: 'sage',
+      silkRotation: -0.35,
       image: 'assets/prepinsta-app.png',
       video: 'assets/prepinsta-mobile-thumbnail.mp4',
       fit: 'cover',
-      bgColors: ['#dff7e8', '#4fbd7a', '#12633a'],
-      bg: 'linear-gradient(160deg, #dff7e8 0%, #4fbd7a 42%, #12633a 100%)',
-      textColor: '#ffffff',
+      bgColors: ['#2b4a40', '#456357', '#5b7767'],
+      bg: 'linear-gradient(135deg, #304f45, #4a695c)',
+      textColor: '#f3f4e9',
       alt: 'PrepInsta Prime mobile app design system',
     },
     {
@@ -139,23 +151,41 @@ window.SITE = {
       description:
         'A redesign of the syllabus, purchase, profile and search surfaces on the web platform.',
       href: '/work/prepinsta-web',
+      surface: 'chalk',
+      silkRotation: 0.8,
       image: 'assets/prepinsta-web-thumbnail.png',
       fit: 'cover',
-      bgColors: ['#effbf3', '#a4dfb9', '#58b77b'],
-      bg: 'linear-gradient(160deg, #effbf3 0%, #a4dfb9 46%, #58b77b 100%)',
+      bgColors: ['#ccd9d5', '#e3eae3', '#f3f4eb'],
+      bg: 'linear-gradient(135deg, #d3dfd9, #f1f3e8)',
       textColor: '#123c28',
       alt: 'PrepInsta Prime web experience shown across desktop screens',
+    },
+    {
+      title: 'InfraOne AI Labs',
+      description:
+        'Designing the landing page, identity and launch campaign for an AI education platform.',
+      href: '/work/infraone',
+      surface: 'umber',
+      silkRotation: -0.7,
+      image: 'assets/infraone-hq.webp',
+      fit: 'cover',
+      bgColors: ['#241e1c', '#49372d', '#75553b'],
+      bg: 'linear-gradient(135deg, #29221e, #514031)',
+      textColor: '#ffffff',
+      alt: 'InfraOne AI Labs website shown on a laptop surrounded by product and security panels',
     },
     {
       title: 'ZELTGOLD - Jewellery Savings',
       description:
         'Designing a trusted jewellery savings app and launch site in 20 days.',
       href: '/work/zeltgold',
+      surface: 'olive',
+      silkRotation: -0.5,
       image: 'assets/zeltgold.png',
       video: 'assets/zeltgold-thumbnail.mp4',
       fit: 'contain',
-      bgColors: ['#edf0e8', '#386a4f', '#143d2a'],
-      bg: 'linear-gradient(160deg, #edf0e8 0%, #5b846d 44%, #143d2a 100%)',
+      bgColors: ['#15271f', '#304737', '#65704c'],
+      bg: 'linear-gradient(135deg, #182d23, #3b4b32)',
       textColor: '#ffffff',
       alt: 'ZELTGOLD jewellery savings app and landing page case study',
     },
@@ -164,26 +194,16 @@ window.SITE = {
       description:
         'Bringing trust, transparency and energy to the Cars24 dealer auction experience.',
       href: '/work/cars24',
+      surface: 'navy',
+      silkRotation: 0.65,
       image: 'assets/cars24.png',
       // the hero is a 1.9:1 banner — "contain" keeps the headline and the
       // phone mockups intact instead of cropping them out of a 4:3 box
       fit: 'contain',
-      bgColors: ['#05070f', '#0f2a6b', '#3b1d8f'],
-      bg: 'linear-gradient(160deg, #05070f 0%, #0f2a6b 55%, #3b1d8f 100%)',
+      bgColors: ['#101d30', '#243957', '#405775'],
+      bg: 'linear-gradient(135deg, #142238, #2a405e)',
       textColor: '#ffffff',
       alt: 'Cars24 dealer auction app redesign case study',
-    },
-    {
-      title: 'InfraOne AI Labs',
-      description:
-        'Designing the landing page, identity and launch campaign for an AI education platform.',
-      href: '/work/infraone',
-      image: 'assets/infraone-hq.webp',
-      fit: 'cover',
-      bgColors: ['#1c0800', '#a83800', '#fa5d00'],
-      bg: 'linear-gradient(160deg, #1c0800 0%, #a83800 48%, #fa5d00 100%)',
-      textColor: '#ffffff',
-      alt: 'InfraOne AI Labs website shown on a laptop surrounded by product and security panels',
     },
   ],
 };

@@ -253,19 +253,14 @@
 
     var footer = document.createElement('footer');
     footer.className = 'portfolio-case-footer';
-    footer.innerHTML =
-      '<div class="portfolio-case-footer__inner">' +
-      '<div class="portfolio-case-footer__identity">' +
-      '<span class="portfolio-case-footer__eyebrow">Selected work</span>' +
-      '<strong>Akshit Manik</strong>' +
-      '<p>Product designer working across mobile and web.</p>' +
-      '</div>' +
-      '<div class="portfolio-case-footer__links">' +
-      '<a href="mailto:akshitmanik.design@gmail.com">akshitmanik.design@gmail.com</a>' +
-      '<a href="/" target="_top">All work <span aria-hidden="true">↗</span></a>' +
-      '</div>' +
-      '</div>';
     document.body.appendChild(footer);
+    var style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = '/shared/homepage-footer.css?v=1';
+    document.head.appendChild(style);
+    var script = document.createElement('script');
+    script.src = '/shared/homepage-footer.js?v=1';
+    document.body.appendChild(script);
   }
 
   function loadCat() {
@@ -320,6 +315,13 @@
   }
 
   function init() {
+    // The case studies' React trees can hydrate after window.load. Inserting
+    // chrome sooner changes the tree React expects and forces a client rebuild.
+    if (
+      window.location.pathname.indexOf('/case-studies/') === 0 &&
+      !window.__portfolioHydrated
+    )
+      return;
     var project = currentProject();
     if (!project) return;
     if (window.location.pathname.indexOf('/cars24') === 0) {
@@ -339,6 +341,8 @@
     window.setTimeout(init, 2500);
     window.setTimeout(init, 4000);
   }
+
+  window.addEventListener('portfolio:hydrated', scheduleInit);
 
   if (document.readyState === 'complete') scheduleInit();
   else {

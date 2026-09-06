@@ -118,9 +118,9 @@ export default function Page() {
             </div>
             <div className="hi">
               <div className="v">
-                <Counter to={25} prefix="+" suffix="%" />
+                <Counter to={24} prefix="~" suffix="%" />
               </div>
-              <div className="l">Net ARPU</div>
+              <div className="l">CTA click-through</div>
             </div>
             <div>
               <div className="v">
@@ -1122,9 +1122,9 @@ export default function Page() {
                 'Ungated previews, guest exploration, visible syllabus before the paywall.',
               ],
               [
-                'Net ARPU',
-                '+25%',
-                'Two-plan paywall with per-day reframing; 74% chose yearly.',
+                'CTA click-through rate',
+                '~24%',
+                'Key in-app calls to action across the acquisition journey.',
               ],
               [
                 'Monthly actives',

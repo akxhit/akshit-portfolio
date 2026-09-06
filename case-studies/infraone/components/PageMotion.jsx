@@ -66,6 +66,10 @@ export default function PageMotion() {
             });
         });
 
+    // Shared portfolio UI mounts after this React tree has hydrated.
+    window.__portfolioHydrated = true;
+    window.dispatchEvent(new Event('portfolio:hydrated'));
+
     return () => {
       window.removeEventListener('scroll', requestThemeSync);
       window.removeEventListener('resize', requestThemeSync);

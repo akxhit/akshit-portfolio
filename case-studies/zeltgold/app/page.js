@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import GooglePlayIcon from '@/components/GooglePlayIcon';
 import { ArrowUpRight } from 'lucide-react';
 import HeroField from '@/components/HeroField';
 import HeroShowcase from '@/components/HeroShowcase';
@@ -40,7 +41,7 @@ export default function Page() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <span className="v2-play-mark" aria-hidden="true" />
+                  <GooglePlayIcon />
                   <span>
                     <small>Available on</small>Google Play
                   </span>

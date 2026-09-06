@@ -48,6 +48,8 @@
         return Math.min(1, 1.001 - Math.pow(2, -10 * t));
       },
       smoothWheel: true,
+      allowNestedScroll: true,
+      syncTouch: false,
       touchMultiplier: 1.6,
     });
 
@@ -344,7 +346,7 @@
       return;
     }
     initLenis();
-    initIntro();
+    if (!document.querySelector('.studio')) initIntro();
     initCards();
     initMagnetic();
     initStickers();

@@ -64,6 +64,10 @@ export default function Providers({ children }) {
     window.addEventListener('resize', readTheme);
     readTheme();
 
+    // Shared portfolio UI mounts after this React tree has hydrated.
+    window.__portfolioHydrated = true;
+    window.dispatchEvent(new Event('portfolio:hydrated'));
+
     return () => {
       clearInterval(beat);
       cancelAnimationFrame(frame);

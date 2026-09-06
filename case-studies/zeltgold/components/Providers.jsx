@@ -64,6 +64,11 @@ export default function Providers({ children }) {
     window.addEventListener('resize', readTheme);
     readTheme();
 
+    // The shared chrome inserts navigation/footer DOM outside React. Wait for
+    // this page's hydration commit before allowing those document changes.
+    window.__portfolioHydrated = true;
+    window.dispatchEvent(new Event('portfolio:hydrated'));
+
     return () => {
       clearInterval(beat);
       cancelAnimationFrame(frame);

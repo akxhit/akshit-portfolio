@@ -20,13 +20,15 @@
     "postbuild": "node scripts/finalize-build.mjs",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint app scripts vite.config.ts next.config.ts",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "build:homepage-effects": "node scripts/build-homepage-effects.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.37.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-server-dom-webpack": "19.2.8",
+    "vgpu": "0.4.0",
     "vinext": "1.0.0-beta.5"
   },
   "devDependencies": {
@@ -42,8 +44,8 @@
     "oxfmt": "0.61.0",
     "oxlint": "1.76.0",
     "oxlint-tsgolint": "7.0.2001",
-    "sharp": "^0.35.4",
     "shadcn": "^4.19.0",
+    "sharp": "^0.35.4",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
     "vite": "8.0.13",

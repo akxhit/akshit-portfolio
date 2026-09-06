@@ -1,3 +1,4 @@
+import './build-case-footer.mjs';
 import {
   cp,
   mkdir,
@@ -148,7 +149,7 @@ async function localizeCars24Images(file, assetsDirectory) {
 const chromeHead =
   '<link data-portfolio-chrome rel="stylesheet" href="/shared/case-study-chrome.css?v=portfolio9">';
 const chromeBody =
-  '<!-- portfolio-chrome:start --><script src="/shared/case-study-chrome.js?v=portfolio9"></script><!-- portfolio-chrome:end -->';
+  '<!-- portfolio-chrome:start --><script src="/shared/case-study-chrome.js?v=portfolio10"></script><!-- portfolio-chrome:end -->';
 const transitionBridge =
   '<!-- portfolio-transition:start --><script src="/shared/page-transition-bridge.js?v=portfolio4"></script><!-- portfolio-transition:end -->';
 
@@ -178,6 +179,14 @@ async function injectCaseStudyChrome(file) {
 
 async function injectTransitionBridge(file) {
   let html = await readFile(file, 'utf8');
+  html = html.replace(
+    /\s*<!-- portfolio-experience:start -->[\s\S]*?<!-- portfolio-experience:end -->\s*/g,
+    '',
+  );
+  html = html.replace(
+    '</head>',
+    '\n<!-- portfolio-experience:start --><script src="/shared/portfolio-experience.js?v=2"></script><!-- portfolio-experience:end -->\n</head>',
+  );
   html = html.replace(
     /\r?\n?<!-- portfolio-transition:start -->[\s\S]*?<!-- portfolio-transition:end -->\r?\n?/g,
     '',
