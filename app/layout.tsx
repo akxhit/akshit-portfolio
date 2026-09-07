@@ -11,12 +11,15 @@ export const metadata: Metadata = {
     'Product designer working across mobile and web. Explore selected case studies for ZELTGOLD, PrepInsta Prime, and Cars24.',
   icons: { icon: { url: '/favicon.png', type: 'image/png' } },
   openGraph: {
+    url: 'https://akshitmanik.vercel.app',
+    type: 'website',
+    siteName: 'Akshit Manik',
     title: 'Akshit Manik | Product Designer',
     description:
       'Product design for mobile and web, told through five detailed case studies.',
     images: [
       {
-        url: '/og.png',
+        url: '/og-v2.png',
         width: 1200,
         height: 630,
         alt: 'Akshit Manik product design portfolio',
@@ -28,7 +31,7 @@ export const metadata: Metadata = {
     title: 'Akshit Manik | Product Designer',
     description:
       'Product design for mobile and web, told through five detailed case studies.',
-    images: ['/og.png'],
+    images: ['/og-v2.png'],
   },
 };
 
