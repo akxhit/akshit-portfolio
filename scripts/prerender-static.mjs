@@ -72,8 +72,8 @@ const inlineStyles = `
 const routes = [
   {
     url: '/',
-    title: 'Akshit Manik | Product Designer',
-    desc: 'Product designer working across mobile and web. Explore selected case studies for ZELTGOLD, PrepInsta Prime, and Cars24.',
+    title: 'Akshit Manik | AI Product Designer',
+    desc: 'Product Designer, with PM mindset and artist eye, 0→1 Products, Growth & UX | Turning Complex Problems into Simple Experiences',
     iframeSrc: '/portfolio/index.html?v=portfolio10',
     iframeTitle: 'Akshit Manik product design portfolio',
     isHome: true,
@@ -135,14 +135,16 @@ function generateFallbackHtml(r) {
     <meta property="og:url" content="https://akshitmanik.vercel.app" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Akshit Manik" />
-    <meta property="og:image" content="https://akshitmanik.vercel.app/og-v2.png" />
+    <meta property="og:image" content="https://akshitmanik.vercel.app/og-v3.jpg" />
+    <meta property="og:image:secure_url" content="https://akshitmanik.vercel.app/og-v3.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Akshit Manik product design portfolio" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${r.title}" />
     <meta name="twitter:description" content="${r.desc}" />
-    <meta name="twitter:image" content="https://akshitmanik.vercel.app/og-v2.png" />
+    <meta name="twitter:image" content="https://akshitmanik.vercel.app/og-v3.jpg" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="${cssHref}" />
     <style>${inlineStyles}</style>
